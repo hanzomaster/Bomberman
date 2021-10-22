@@ -1,0 +1,14 @@
+{
+  "java.project.sourcePaths": [
+    "src"
+  ],
+  "java.project.outputPath": "bin",
+  "java.project.referencedLibraries": {
+    "include": [
+      "lib/**/*.jar",
+      "javafx-sdk-17.0.0.1/lib/**/*.jar",
+    ],
+  },
+  "java.checkstyle.configuration": "${workspaceFolder}\\.vscode\\eclipse-java-google-style.xml",
+  "java.format.settings.url": ".vscode/eclipse-java-google-style.xml"
+}
