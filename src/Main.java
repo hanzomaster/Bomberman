@@ -1,4 +1,3 @@
-
 import java.util.ArrayList;
 import java.util.List;
 import javafx.animation.AnimationTimer;
@@ -23,7 +22,6 @@ public class Main extends Application {
   private Canvas canvas;
   private List<Entity> entities = new ArrayList<>();
   private List<Entity> stillObjects = new ArrayList<>();
-
 
   public static void main(String[] args) {
     Application.launch(Main.class);
@@ -59,6 +57,8 @@ public class Main extends Application {
 
     Entity bomberman = new Bomber(1, 1, Sprite.playerRight.getFxImage());
     entities.add(bomberman);
+    Entity monster = new Bomber(1, 2, Sprite.balloomLeft1.getFxImage());
+    entities.add(monster);
   }
 
   public void createMap() {
