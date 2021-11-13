@@ -8,7 +8,7 @@ import lombok.extern.java.Log;
 
 /**
  * Tất cả sprite (hình ảnh game) được lưu trữ vào một ảnh duy nhất Class này giúp lấy ra các sprite
- * riêng từ 1 ảnh chung duy nhất đó
+ * riêng từ 1 ảnh chung duy nhất đó.
  */
 @Log
 public class SpriteSheet {
@@ -19,6 +19,11 @@ public class SpriteSheet {
 
   public static final SpriteSheet tiles = new SpriteSheet("/resources/textures/classic.png", 256);
 
+  /**
+   * Load sprite sheet for cutting.
+   * 
+   * @param path Path to sprite sheet
+   */
   public SpriteSheet(String path, int size) {
     this.path = path;
     this.size = size;

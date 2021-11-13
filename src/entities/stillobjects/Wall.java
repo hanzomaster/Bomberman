@@ -1,5 +1,6 @@
-package entities;
+package entities.stillobjects;
 
+import entities.Entity;
 import javafx.scene.image.Image;
 
 public class Wall extends Entity {
@@ -9,7 +10,5 @@ public class Wall extends Entity {
   }
 
   @Override
-  public void update() {
-
-  }
+  public void update() {}
 }

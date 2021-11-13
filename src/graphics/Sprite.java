@@ -7,7 +7,7 @@ import javafx.scene.image.PixelWriter;
 import javafx.scene.image.WritableImage;
 
 /**
- * Lưu trữ thông tin các pixel của 1 sprite (hình ảnh game)
+ * Lưu trữ thông tin các pixel của 1 sprite (hình ảnh game).
  */
 public class Sprite {
 
@@ -247,6 +247,16 @@ public class Sprite {
   public static final Sprite powerupFlamepass =
       new Sprite(DEFAULT_SIZE, 6, 10, SpriteSheet.tiles, 16, 16);
 
+  /**
+   * Generate sprite from image.
+   * 
+   * @param size Size of image
+   * @param x x postion of sprite in image
+   * @param y y position of sprite in image
+   * @param sheet Location of that image
+   * @param rw Width of the cut
+   * @param rh Height of the cut
+   */
   public Sprite(int size, int x, int y, SpriteSheet sheet, int rw, int rh) {
     this.size = size;
     pixels = new int[this.size * this.size];
@@ -258,6 +268,9 @@ public class Sprite {
     load();
   }
 
+  /**
+   * Generate sprite with color.
+   */
   public Sprite(int size, int color) {
     this.size = size;
     pixels = new int[this.size * this.size];
@@ -278,6 +291,12 @@ public class Sprite {
     }
   }
 
+  /**
+   * Animate the sprite.
+   * 
+   * @param time Time of the animation
+   * @return Final sprite at new position
+   */
   public static final Sprite movingSprite(Sprite normal, Sprite x1, Sprite x2, int animate,
       int time) {
     int calc = animate % time;
@@ -307,6 +326,9 @@ public class Sprite {
     return pixels[i];
   }
 
+  /**
+   * Get FX image.
+   */
   public Image getFxImage() {
     WritableImage wr = new WritableImage(size, size);
     PixelWriter pw = wr.getPixelWriter();
@@ -333,17 +355,16 @@ public class Sprite {
     PixelReader reader = input.getPixelReader();
     PixelWriter writer = output.getPixelWriter();
 
-    for (int j = 0; j < H; j++) {
-      for (int i = 0; i < W; i++) {
-        final int argb = reader.getArgb(i, j);
+    for (int i = 0; i < H; i++) {
+      for (int j = 0; j < W; j++) {
+        final int argb = reader.getArgb(j, i);
         for (int dy = 0; dy < S; dy++) {
           for (int dx = 0; dx < S; dx++) {
-            writer.setArgb(i * S + dx, j * S + dy, argb);
+            writer.setArgb(j * S + dx, i * S + dy, argb);
           }
         }
       }
     }
-
     return output;
   }
 }

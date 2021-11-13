@@ -1,3 +1,8 @@
+import entities.Bomber;
+import entities.Entity;
+import entities.stillobjects.Grass;
+import entities.stillobjects.Wall;
+import graphics.Sprite;
 import java.util.ArrayList;
 import java.util.List;
 import javafx.animation.AnimationTimer;
@@ -7,15 +12,11 @@ import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.stage.Stage;
-import entities.Bomber;
-import entities.Entity;
-import entities.Grass;
-import entities.Wall;
-import graphics.Sprite;
+
 
 public class Main extends Application {
 
-  public static final int WIDTH = 20;
+  public static final int WIDTH = 31;
   public static final int HEIGHT = 15;
 
   private GraphicsContext gc;
@@ -23,24 +24,27 @@ public class Main extends Application {
   private List<Entity> entities = new ArrayList<>();
   private List<Entity> stillObjects = new ArrayList<>();
 
+  private int score = 0;
+  private int lives = 3;
+
   public static void main(String[] args) {
     Application.launch(Main.class);
   }
 
   @Override
   public void start(Stage stage) {
-    // Tao Canvas
+    // Tạo Canvas
     canvas = new Canvas(Sprite.SCALED_SIZE * WIDTH * 1.0, Sprite.SCALED_SIZE * HEIGHT * 1.0);
     gc = canvas.getGraphicsContext2D();
 
-    // Tao root container
+    // Tạo root container
     Group root = new Group();
     root.getChildren().add(canvas);
 
-    // Tao scene
+    // Tại scene
     Scene scene = new Scene(root);
 
-    // Them scene vao stage
+    // Thêm scene vào stage
     stage.setScene(scene);
     stage.show();
 
@@ -57,10 +61,11 @@ public class Main extends Application {
 
     Entity bomberman = new Bomber(1, 1, Sprite.playerRight.getFxImage());
     entities.add(bomberman);
-    Entity monster = new Bomber(1, 2, Sprite.balloomLeft1.getFxImage());
-    entities.add(monster);
   }
 
+  /**
+   * Create the map.
+   */
   public void createMap() {
     for (int i = 0; i < WIDTH; i++) {
       for (int j = 0; j < HEIGHT; j++) {
@@ -79,9 +84,28 @@ public class Main extends Application {
     entities.forEach(Entity::update);
   }
 
+  /**
+   * Render the game itself.
+   */
   public void render() {
     gc.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
     stillObjects.forEach(g -> g.render(gc));
     entities.forEach(g -> g.render(gc));
+  }
+
+  public int getScore() {
+    return score;
+  }
+
+  public void setScore(final int score) {
+    this.score = score;
+  }
+
+  public int getLives() {
+    return lives;
+  }
+
+  public void setLives(final int lives) {
+    this.lives = lives;
   }
 }
