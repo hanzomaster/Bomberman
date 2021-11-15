@@ -1,10 +1,12 @@
+import java.util.ArrayList;
+import java.util.List;
 import entities.Bomber;
 import entities.Entity;
+import entities.monsters.Balloon;
+import entities.monsters.Doll;
 import entities.stillobjects.Grass;
 import entities.stillobjects.Wall;
 import graphics.Sprite;
-import java.util.ArrayList;
-import java.util.List;
 import javafx.animation.AnimationTimer;
 import javafx.application.Application;
 import javafx.scene.Group;
@@ -60,7 +62,11 @@ public class Main extends Application {
     createMap();
 
     Entity bomberman = new Bomber(1, 1, Sprite.playerRight.getFxImage());
+    Entity balloonmonster = new Balloon(3, 1, Sprite.balloomRight1.getFxImage());
+    Entity dollEntity = new Doll(5, 3, Sprite.dollLeft2.getFxImage());
     entities.add(bomberman);
+    entities.add(balloonmonster);
+    entities.add(dollEntity);
   }
 
   /**
