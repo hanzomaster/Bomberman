@@ -40,7 +40,7 @@ public class SpriteSheet {
       int h = image.getHeight();
       image.getRGB(0, 0, w, h, pixels, 0, w);
     } catch (IOException e) {
-      // log.severe("Can't load image");
+      log.severe("Can't load image");
       e.printStackTrace();
       System.exit(0);
     }
