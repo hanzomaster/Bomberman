@@ -10,21 +10,19 @@ import javafx.scene.image.WritableImage;
  * Lưu trữ thông tin các pixel của 1 sprite (hình ảnh game).
  */
 public class Sprite {
-
   public static final int DEFAULT_SIZE = 16;
   public static final int SCALED_SIZE = DEFAULT_SIZE * 2;
   private static final int TRANSPARENT_COLOR = 0xffff00ff;
   public final int size;
   private int x;
   private int y;
-  public int[] pixels;
+  private int[] pixels;
   protected int realWidth;
   protected int realHeight;
   private SpriteSheet sheet;
 
   /*
-   * |-------------------------------------------------------------------------- | Board sprites
-   * |--------------------------------------------------------------------------
+   * Board sprites
    */
   public static final Sprite grass = new Sprite(DEFAULT_SIZE, 6, 0, SpriteSheet.tiles, 16, 16);
   public static final Sprite brick = new Sprite(DEFAULT_SIZE, 7, 0, SpriteSheet.tiles, 16, 16);
@@ -32,8 +30,7 @@ public class Sprite {
   public static final Sprite portal = new Sprite(DEFAULT_SIZE, 4, 0, SpriteSheet.tiles, 14, 14);
 
   /*
-   * |-------------------------------------------------------------------------- | Bomber Sprites
-   * |--------------------------------------------------------------------------
+   * Bomber Sprites
    */
   public static final Sprite playerUp = new Sprite(DEFAULT_SIZE, 0, 0, SpriteSheet.tiles, 12, 16);
   public static final Sprite playerDown = new Sprite(DEFAULT_SIZE, 2, 0, SpriteSheet.tiles, 12, 15);
@@ -67,8 +64,7 @@ public class Sprite {
       new Sprite(DEFAULT_SIZE, 6, 2, SpriteSheet.tiles, 16, 16);
 
   /*
-   * |-------------------------------------------------------------------------- | Character
-   * |--------------------------------------------------------------------------
+   * Characters
    */
   // BALLOM
   public static final Sprite balloomLeft1 =
@@ -157,16 +153,14 @@ public class Sprite {
   public static final Sprite mobDead13 = new Sprite(DEFAULT_SIZE, 15, 2, SpriteSheet.tiles, 16, 16);
 
   /*
-   * |-------------------------------------------------------------------------- | Bomb Sprites
-   * |--------------------------------------------------------------------------
+   * Bomb Sprites
    */
   public static final Sprite bomb = new Sprite(DEFAULT_SIZE, 0, 3, SpriteSheet.tiles, 15, 15);
   public static final Sprite bomb1 = new Sprite(DEFAULT_SIZE, 1, 3, SpriteSheet.tiles, 13, 15);
   public static final Sprite bomb2 = new Sprite(DEFAULT_SIZE, 2, 3, SpriteSheet.tiles, 12, 14);
 
   /*
-   * |-------------------------------------------------------------------------- | FlameSegment
-   * Sprites |--------------------------------------------------------------------------
+   * FlameSegment Sprites
    */
   public static final Sprite bombExploded =
       new Sprite(DEFAULT_SIZE, 0, 4, SpriteSheet.tiles, 16, 16);
@@ -218,8 +212,7 @@ public class Sprite {
       new Sprite(DEFAULT_SIZE, 3, 6, SpriteSheet.tiles, 16, 16);
 
   /*
-   * |-------------------------------------------------------------------------- | Brick
-   * FlameSegment |--------------------------------------------------------------------------
+   * Brick FlameSegment
    */
   public static final Sprite brickExploded =
       new Sprite(DEFAULT_SIZE, 7, 1, SpriteSheet.tiles, 16, 16);
@@ -229,8 +222,7 @@ public class Sprite {
       new Sprite(DEFAULT_SIZE, 7, 3, SpriteSheet.tiles, 16, 16);
 
   /*
-   * |-------------------------------------------------------------------------- | Powerups
-   * |--------------------------------------------------------------------------
+   * Powerups
    */
   public static final Sprite powerupBombs =
       new Sprite(DEFAULT_SIZE, 0, 10, SpriteSheet.tiles, 16, 16);
@@ -246,6 +238,37 @@ public class Sprite {
       new Sprite(DEFAULT_SIZE, 5, 10, SpriteSheet.tiles, 16, 16);
   public static final Sprite powerupFlamepass =
       new Sprite(DEFAULT_SIZE, 6, 10, SpriteSheet.tiles, 16, 16);
+
+  /*
+   * New sprites for every level
+   */
+  public static final Sprite grass1 = new Sprite(DEFAULT_SIZE, 0, 0, SpriteSheet.newtiles, 32, 32);
+  public static final Sprite wall1 = new Sprite(DEFAULT_SIZE, 1, 0, SpriteSheet.newtiles, 32, 32);
+  public static final Sprite brick1 = new Sprite(DEFAULT_SIZE, 2, 0, SpriteSheet.newtiles, 32, 32);
+
+  public static final Sprite grass2 = new Sprite(DEFAULT_SIZE, 0, 1, SpriteSheet.newtiles, 32, 32);
+  public static final Sprite wall2 = new Sprite(DEFAULT_SIZE, 1, 1, SpriteSheet.newtiles, 32, 32);
+  public static final Sprite brick2 = new Sprite(DEFAULT_SIZE, 2, 1, SpriteSheet.newtiles, 32, 32);
+
+  public static final Sprite grass3 = new Sprite(DEFAULT_SIZE, 0, 2, SpriteSheet.newtiles, 32, 32);
+  public static final Sprite wall3 = new Sprite(DEFAULT_SIZE, 1, 2, SpriteSheet.newtiles, 32, 32);
+  public static final Sprite brick3 = new Sprite(DEFAULT_SIZE, 2, 2, SpriteSheet.newtiles, 32, 32);
+
+  public static final Sprite grass4 = new Sprite(DEFAULT_SIZE, 0, 3, SpriteSheet.newtiles, 32, 32);
+  public static final Sprite wall4 = new Sprite(DEFAULT_SIZE, 1, 3, SpriteSheet.newtiles, 32, 32);
+  public static final Sprite brick4 = new Sprite(DEFAULT_SIZE, 2, 3, SpriteSheet.newtiles, 32, 32);
+
+  public static final Sprite grass5 = new Sprite(DEFAULT_SIZE, 0, 4, SpriteSheet.newtiles, 32, 32);
+  public static final Sprite wall5 = new Sprite(DEFAULT_SIZE, 1, 4, SpriteSheet.newtiles, 32, 32);
+  public static final Sprite brick5 = new Sprite(DEFAULT_SIZE, 2, 4, SpriteSheet.newtiles, 32, 32);
+
+  public static final Sprite grass6 = new Sprite(DEFAULT_SIZE, 0, 5, SpriteSheet.newtiles, 32, 32);
+  public static final Sprite wall6 = new Sprite(DEFAULT_SIZE, 1, 5, SpriteSheet.newtiles, 32, 32);
+  public static final Sprite brick6 = new Sprite(DEFAULT_SIZE, 2, 5, SpriteSheet.newtiles, 32, 32);
+
+  public static final Sprite grass7 = new Sprite(DEFAULT_SIZE, 3, 0, SpriteSheet.newtiles, 32, 32);
+  public static final Sprite wall7 = new Sprite(DEFAULT_SIZE, 4, 0, SpriteSheet.newtiles, 32, 32);
+  public static final Sprite brick7 = new Sprite(DEFAULT_SIZE, 5, 0, SpriteSheet.newtiles, 32, 32);
 
   /**
    * Generate sprite from image.

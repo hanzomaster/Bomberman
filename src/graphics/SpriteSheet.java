@@ -15,9 +15,12 @@ public class SpriteSheet {
 
   private String path;
   public final int size;
-  public int[] pixels;
+  protected int[] pixels;
 
   public static final SpriteSheet tiles = new SpriteSheet("/resources/textures/classic.png", 256);
+  public static final SpriteSheet dragon = new SpriteSheet("/resources/textures/dragon.png", 64);
+  public static final SpriteSheet newtiles =
+      new SpriteSheet("/resources/textures/TilesMap.png", 96);
 
   /**
    * Load sprite sheet for cutting.
