@@ -12,7 +12,6 @@ public abstract class Monster extends AnimationEntity {
 
   public Monster(int xUnit, int yUnit, Image img) {
     super(xUnit, yUnit, img);
-    // TODO Auto-generated constructor stub
   }
 
   public int getDirection() {
@@ -30,7 +29,4 @@ public abstract class Monster extends AnimationEntity {
   public void setVelocity(int velocity) {
     this.velocity = velocity;
   }
-
-
-
 }

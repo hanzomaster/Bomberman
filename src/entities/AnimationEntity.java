@@ -4,23 +4,20 @@ import javafx.scene.image.Image;
 
 public abstract class AnimationEntity extends Entity {
 
-    protected int animate = 0;
-    protected final int MAX_ANIMATE = 5000;
+  protected int animation = 0;
+  public static final int MAX_ANIMATE = 5000;
 
-    protected int timeTransfer = 26;
+  protected int timeTransfer = 26;
 
-    public AnimationEntity(int xUnit, int yUnit, Image img) {
-        super(xUnit, yUnit, img);
-        // TODO Auto-generated constructor stub
+  public AnimationEntity(int xUnit, int yUnit, Image img) {
+    super(xUnit, yUnit, img);
+  }
+
+  protected void animate() {
+    if (animation > MAX_ANIMATE) {
+      animation = 0;
+    } else {
+      animation += 1;
     }
-
-    protected void animate() {
-        if (animate > MAX_ANIMATE) {
-            animate = 0;
-        } else {
-            animate += 1;
-        }
-    }
+  }
 }
-
-
