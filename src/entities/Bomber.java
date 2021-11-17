@@ -18,6 +18,5 @@ public class Bomber extends Entity {
       x--;
     }
     x += 1;
-    System.out.println(x);
   }
 }

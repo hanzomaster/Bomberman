@@ -35,4 +35,25 @@ public abstract class Entity {
   public int getYUnit() {
     return (y + Sprite.DEFAULT_SIZE) / Sprite.SCALED_SIZE;
   }
+
+  public void setImg(Image img) {
+    this.img = img;
+  }
+
+  public int getX() {
+    return x;
+  }
+
+  public void setX(int x) {
+    this.x = x;
+  }
+
+  public int getY() {
+    return y;
+  }
+
+  public void setY(int y) {
+    this.y = y;
+  }
+
 }

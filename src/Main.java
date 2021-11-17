@@ -62,7 +62,7 @@ public class Main extends Application {
     createMap();
 
     Entity bomberman = new Bomber(1, 1, Sprite.playerRight.getFxImage());
-    Entity balloonmonster = new Balloon(3, 1, Sprite.balloomRight1.getFxImage());
+    Entity balloonmonster = new Balloon(3, 1);
     Entity dollEntity = new Doll(5, 3, Sprite.dollLeft2.getFxImage());
     entities.add(bomberman);
     entities.add(balloonmonster);
