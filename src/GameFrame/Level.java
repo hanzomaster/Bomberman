@@ -1,6 +1,9 @@
 package GameFrame;
 
-import entities.Bomber;
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.util.ArrayList;
+import java.util.List;
 import entities.Entity;
 import entities.monsters.Balloon;
 import entities.monsters.Doll;
@@ -8,13 +11,10 @@ import entities.monsters.Kondoria;
 import entities.monsters.Minvo;
 import entities.monsters.Monster;
 import entities.monsters.Oneal;
+import entities.player.Bomber;
 import entities.stillobjects.Brick;
 import entities.stillobjects.Grass;
 import entities.stillobjects.Wall;
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.util.ArrayList;
-import java.util.List;
 import lombok.extern.java.Log;
 import powerups.BombPassItem;
 import powerups.BrickPassItem;
@@ -164,7 +164,7 @@ public class Level {
         }
       }
     } catch (Exception e) {
-      log.severe("Can't generate map");
+      // log.severe("Can't generate map");
       e.printStackTrace();
     }
   }

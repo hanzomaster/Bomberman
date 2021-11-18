@@ -1,20 +1,23 @@
-import entities.Bomber;
+package GameMain;
+
+import java.util.ArrayList;
+import java.util.List;
+import GameFrame.CanvasGame;
+import GameFrame.KeyboardInput;
 import entities.Entity;
 import entities.monsters.Balloon;
 import entities.monsters.Doll;
 import entities.monsters.Kondoria;
 import entities.monsters.Minvo;
 import entities.monsters.Oneal;
+import entities.player.Bomber;
 import entities.stillobjects.Grass;
 import entities.stillobjects.Wall;
 import graphics.Sprite;
-import java.util.ArrayList;
-import java.util.List;
 import javafx.animation.AnimationTimer;
 import javafx.application.Application;
 import javafx.scene.Group;
 import javafx.scene.Scene;
-import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.stage.Stage;
 
@@ -23,7 +26,7 @@ public class BombermanGame extends Application {
   public static final int HEIGHT = 15;
 
   private GraphicsContext gc;
-  private Canvas canvas;
+  public static CanvasGame canvas;
   private List<Entity> entities = new ArrayList<>();
   private List<Entity> stillObjects = new ArrayList<>();
 
@@ -33,7 +36,7 @@ public class BombermanGame extends Application {
   @Override
   public void start(Stage stage) {
     // Tạo Canvas
-    canvas = new Canvas(Sprite.SCALED_SIZE * WIDTH * 1.0, Sprite.SCALED_SIZE * HEIGHT * 1.0);
+    canvas = new CanvasGame(Sprite.SCALED_SIZE * WIDTH * 1.0, Sprite.SCALED_SIZE * HEIGHT * 1.0);
     gc = canvas.getGraphicsContext2D();
 
     // Tạo root container
@@ -60,7 +63,7 @@ public class BombermanGame extends Application {
 
     createMap();
 
-    Entity bomberman = new Bomber(1, 1, Sprite.playerRight.getFxImage());
+    Entity bomberman = new Bomber(1, 1, new KeyboardInput());
     Entity balloonmonster = new Balloon(3, 1);
     Entity dollEntity = new Doll(1, 3);
     Entity kondoriaEntity = new Kondoria(1, 5);
