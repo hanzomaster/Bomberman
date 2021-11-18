@@ -1,41 +1,36 @@
 package GameFrame;
 
-import javafx.event.EventHandler;
 import javafx.scene.canvas.Canvas;
-import javafx.scene.input.KeyEvent;
 
 public class CanvasGame extends Canvas {
+  private Game game = new Game();
+  private KeyboardInput input = new KeyboardInput();
+  public static final String TITLE = "Bomberman";
 
-    private KeyboardInput input = new KeyboardInput();
-    public static final String TITTLE = "Bomberman";
+  /**
+   * Create canvas.
+   */
+  public CanvasGame(double width, double height) {
+    super(width, height);
 
-    public CanvasGame(double d, double e) {
-        super(d, e);
+    // Key Event
+    this.requestFocus();
+    this.setFocusTraversable(true);
+    this.setOnKeyPressed(keyEvent -> input.updateKeyPressed(keyEvent));
+    this.setOnKeyReleased(keyEvent -> input.updateKeyReleased(keyEvent));
+  }
 
-        // key Event
-        this.requestFocus();
-        this.setFocusTraversable(true);
-        this.setOnKeyPressed(new EventHandler<KeyEvent>() {
-            @Override
-            public void handle(KeyEvent keyEvent) {
-                input.updateKeyPressed(keyEvent);
-            }
-        });
-        this.setOnKeyReleased(new EventHandler<KeyEvent>() {
-            @Override
-            public void handle(KeyEvent keyEvent) {
-                input.updateKeyReleased(keyEvent);
-            }
-        });
-    }
+  public void update() {}
 
+  public void render() {
+    game.render(this);
+  }
 
-    public void update() {}
+  public KeyboardInput getInput() {
+    return input;
+  }
 
-    public void render() {}
-
-    public KeyboardInput getInput() {
-        return input;
-    }
-
+  public Game getGame() {
+    return game;
+  }
 }

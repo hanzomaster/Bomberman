@@ -4,13 +4,11 @@ import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.net.URL;
 import javax.imageio.ImageIO;
-import lombok.extern.java.Log;
 
 /**
  * Tất cả sprite (hình ảnh game) được lưu trữ vào một ảnh duy nhất Class này giúp lấy ra các sprite
  * riêng từ 1 ảnh chung duy nhất đó.
  */
-@Log
 public class SpriteSheet {
 
   private String path;
@@ -43,7 +41,6 @@ public class SpriteSheet {
       int h = image.getHeight();
       image.getRGB(0, 0, w, h, pixels, 0, w);
     } catch (IOException e) {
-      // log.severe("Can't load image");
       e.printStackTrace();
       System.exit(0);
     }

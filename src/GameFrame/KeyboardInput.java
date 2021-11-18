@@ -5,29 +5,15 @@ import javafx.scene.input.KeyEvent;
 
 public class KeyboardInput {
 
-  public boolean up;
-  public boolean down;
-  public boolean left;
-  public boolean right;
-  public boolean space;
-  public boolean pause;
-  public boolean enter;
-  public boolean backspace;
+  public boolean up = false;
+  public boolean down = false;
+  public boolean left = false;
+  public boolean right = false;
+  public boolean space = false;
+  public boolean pause = false;
+  public boolean enter = false;
+  public boolean backspace = false;
   public boolean release = false;// su dung de dieu huong lua chon trong menu game
-
-  /**
-   * Initialize all keyboard input as false.
-   */
-  public KeyboardInput() {
-    up = false;
-    down = false;
-    left = false;
-    right = false;
-    space = false;
-    pause = false;
-    enter = false;
-    backspace = false;
-  }
 
   /**
    * Kiểm tra khi ấn key xuống.

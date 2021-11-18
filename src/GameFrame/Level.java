@@ -1,9 +1,5 @@
 package GameFrame;
 
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.util.ArrayList;
-import java.util.List;
 import entities.Entity;
 import entities.monsters.Balloon;
 import entities.monsters.Doll;
@@ -15,7 +11,10 @@ import entities.player.Bomber;
 import entities.stillobjects.Brick;
 import entities.stillobjects.Grass;
 import entities.stillobjects.Wall;
-import lombok.extern.java.Log;
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.util.ArrayList;
+import java.util.List;
 import powerups.BombPassItem;
 import powerups.BrickPassItem;
 import powerups.FlamePassItem;
@@ -25,7 +24,6 @@ import powerups.PlusLiveItem;
 import powerups.PlusSpeedItem;
 import powerups.Powerup;
 
-@Log
 public class Level {
   private int width;
   private int height;
@@ -68,9 +66,9 @@ public class Level {
               object2.setPortal(true);
               collidableEntities.add(object2);
               break;
-            // case 'p':
-            // bomber = new Bomber(j, i, new KeyboardInput());
-            // break;
+            case 'p':
+              bomber = new Bomber(j, i, new KeyboardInput());
+              break;
             case '1':
               object = new Balloon(j, i);
               monsters.add((Balloon) object);
@@ -164,8 +162,31 @@ public class Level {
         }
       }
     } catch (Exception e) {
-      // log.severe("Can't generate map");
       e.printStackTrace();
     }
+  }
+
+  public List<Entity> getCollidableEntities() {
+    return collidableEntities;
+  }
+
+  public List<Grass> getGrassList() {
+    return grasses;
+  }
+
+  public Bomber getBomber() {
+    return bomber;
+  }
+
+  public List<Monster> getEnemyList() {
+    return monsters;
+  }
+
+  public int getWidth() {
+    return width;
+  }
+
+  public int getHeight() {
+    return height;
   }
 }

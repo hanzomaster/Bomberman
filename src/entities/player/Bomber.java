@@ -4,16 +4,17 @@ import GameFrame.KeyboardInput;
 import GameMain.BombermanGame;
 import graphics.Sprite;
 
-
 public class Bomber extends BomberCharacter {
 
   public static final int WIDTH = 31;
   public static final int HEIGHT = 15;
   private KeyboardInput input;
 
+  /**
+   * Create a bomber that react to user input.
+   */
   public Bomber(int x, int y, KeyboardInput keyboardInput) {
     super(x, y, Sprite.playerDown.getFxImage());
-    this.input = keyboardInput;
     direction = 1;
     velocity = 2;
     input = keyboardInput;
@@ -41,6 +42,8 @@ public class Bomber extends BomberCharacter {
         case 3:
           this.setImg(Sprite.playerRight.getFxImage());
           break;
+        default:
+          break;
       }
     }
     if (isMoving()) {
@@ -49,14 +52,10 @@ public class Bomber extends BomberCharacter {
   }
 
   @Override
-  public void render() {
-    // TODO Auto-generated method stub
-
-  }
+  public void render() {}
 
   @Override
   public void calculateMove() {
-    // TODO Auto-generated method stub
     input = BombermanGame.canvas.getInput();
     if (input.up) {
       y -= velocity;
@@ -79,12 +78,10 @@ public class Bomber extends BomberCharacter {
       this.setImg(Sprite.movingSprite(Sprite.playerRight, Sprite.playerRight1, Sprite.playerRight2,
           animation, timeTransfer).getFxImage());
     }
-
   }
 
   @Override
   public boolean canMove() {
-    // TODO Auto-generated method stub
     return false;
   }
 }
