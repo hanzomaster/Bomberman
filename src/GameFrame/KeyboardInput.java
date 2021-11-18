@@ -33,16 +33,16 @@ public class KeyboardInput {
    * Kiểm tra khi ấn key xuống.
    */
   public void updateKeyPressed(KeyEvent e) {
-    if (e.getCode() == KeyCode.UP) {
+    if (e.getCode() == KeyCode.UP || e.getCode() == KeyCode.W) {
       up = true;
     }
-    if (e.getCode() == KeyCode.DOWN) {
+    if (e.getCode() == KeyCode.DOWN || e.getCode() == KeyCode.S) {
       down = true;
     }
-    if (e.getCode() == KeyCode.LEFT) {
+    if (e.getCode() == KeyCode.LEFT || e.getCode() == KeyCode.A) {
       left = true;
     }
-    if (e.getCode() == KeyCode.RIGHT) {
+    if (e.getCode() == KeyCode.RIGHT || e.getCode() == KeyCode.D) {
       right = true;
     }
     if (e.getCode() == KeyCode.SPACE) {
