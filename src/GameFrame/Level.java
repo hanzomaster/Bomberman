@@ -23,6 +23,7 @@ import powerups.PlusBombItem;
 import powerups.PlusFlameItem;
 import powerups.PlusLiveItem;
 import powerups.PlusSpeedItem;
+import powerups.Powerup;
 
 @Log
 public class Level {
@@ -64,12 +65,12 @@ public class Level {
               break;
             case 'x':
               Brick object2 = new Brick(j, i, level);
-              object2.setBrickHasPortal(true);
+              object2.setPortal(true);
               collidableEntities.add(object2);
               break;
-            case 'p':
-              bomber = new Bomber(j, i, new KeyboardInput());
-              break;
+            // case 'p':
+            // bomber = new Bomber(j, i, new KeyboardInput());
+            // break;
             case '1':
               object = new Balloon(j, i);
               monsters.add((Balloon) object);
@@ -90,69 +91,69 @@ public class Level {
               object = new Kondoria(j, i);
               monsters.add((Kondoria) object);
               break;
-            case '6':
-              object = new Dragon(j, i);
-              monsters.add((Dragon) object);
-              break;
+            // case '6':
+            // object = new Dragon(j, i);
+            // monsters.add((Dragon) object);
+            // break;
             case 'b':
               object = new Brick(j, i, level);
-              Item pbi = new PlusBombItem(j, i);
+              Powerup pbi = new PlusBombItem(j, i);
 
-              ((Brick) object).setBrickHasItem(true, pbi);
+              ((Brick) object).setPowerUp(true, pbi);
               collidableEntities.add(object);
 
               pbi.setId("pbi");
               break;
             case 'f':
               object = new Brick(j, i, level);
-              Item pfi = new PlusFlameItem(j, i);
+              Powerup pfi = new PlusFlameItem(j, i);
 
-              ((Brick) object).setBrickHasItem(true, pfi);
+              ((Brick) object).setPowerUp(true, pfi);
               collidableEntities.add(object);
 
               pfi.setId("pfi");
               break;
             case 's':
               object = new Brick(j, i, level);
-              Item psi = new PlusSpeedItem(j, i);
+              Powerup psi = new PlusSpeedItem(j, i);
 
-              ((Brick) object).setBrickHasItem(true, psi);
+              ((Brick) object).setPowerUp(true, psi);
               collidableEntities.add(object);
 
               psi.setId("psi");
               break;
             case 'B':
               object = new Brick(j, i, level);
-              Item bpi = new BombPassItem(j, i);
+              Powerup bpi = new BombPassItem(j, i);
 
-              ((Brick) object).setBrickHasItem(true, bpi);
+              ((Brick) object).setPowerUp(true, bpi);
               collidableEntities.add(object);
 
               bpi.setId("bpi");
               break;
             case 'F':
               object = new Brick(j, i, level);
-              Item fpi = new FlamePassItem(j, i);
+              Powerup fpi = new FlamePassItem(j, i);
 
-              ((Brick) object).setBrickHasItem(true, fpi);
+              ((Brick) object).setPowerUp(true, fpi);
               collidableEntities.add(object);
 
               fpi.setId("fpi");
               break;
             case 'W':
               object = new Brick(j, i, level);
-              Item wpi = new BrickPassItem(j, i);
+              Powerup wpi = new BrickPassItem(j, i);
 
-              ((Brick) object).setBrickHasItem(true, wpi);
+              ((Brick) object).setPowerUp(true, wpi);
               collidableEntities.add(object);
 
               wpi.setId("wpi");
               break;
             case 'l':
               object = new Brick(j, i, level);
-              Item pli = new PlusLiveItem(j, i);
+              Powerup pli = new PlusLiveItem(j, i);
 
-              ((Brick) object).setBrickHasItem(true, pli);
+              ((Brick) object).setPowerUp(true, pli);
               collidableEntities.add(object);
 
               pli.setId("pli");
