@@ -1,11 +1,11 @@
 package GameFrame;
 
+import java.util.List;
 import GameMain.BombermanGame;
 import entities.Entity;
 import entities.monsters.Monster;
 import entities.player.Bomber;
 import entities.stillobjects.Grass;
-import java.util.List;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 
@@ -73,9 +73,19 @@ public class Game {
       grasses = level.getGrassList();
       entities = level.getCollidableEntities();
       monsters = level.getEnemyList();
+      bomberman = level.getBomber();
 
       updateEnemy(bomberman);
     }
+  }
+
+  public Entity getEntityInCoodinate(int x, int y) {
+    for (Entity e : entities) {
+      if (e.getXUnit() == x && e.getYUnit() == y) {
+        return e;
+      }
+    }
+    return null;
   }
 
   public void update() {
@@ -91,6 +101,7 @@ public class Game {
   public List<Grass> getGrassList() {
     return grasses;
   }
+
 
   /**
    * Render map.

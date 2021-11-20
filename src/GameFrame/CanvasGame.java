@@ -1,5 +1,6 @@
 package GameFrame;
 
+import entities.Entity;
 import javafx.scene.canvas.Canvas;
 
 public class CanvasGame extends Canvas {
@@ -28,6 +29,10 @@ public class CanvasGame extends Canvas {
 
   public KeyboardInput getInput() {
     return input;
+  }
+
+  public Entity getEntityInCoodinate(int x, int y) {
+    return game.getEntityInCoodinate(x, y);
   }
 
   public Game getGame() {

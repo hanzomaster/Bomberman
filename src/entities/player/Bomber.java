@@ -2,6 +2,9 @@ package entities.player;
 
 import GameFrame.KeyboardInput;
 import GameMain.BombermanGame;
+import entities.Entity;
+import entities.stillobjects.Brick;
+import entities.stillobjects.Wall;
 import graphics.Sprite;
 
 public class Bomber extends BomberCharacter {
@@ -9,6 +12,10 @@ public class Bomber extends BomberCharacter {
   public static final int WIDTH = 31;
   public static final int HEIGHT = 15;
   private KeyboardInput input;
+  private final int[] AddToXToCheckCollision =
+      {0, Sprite.SCALED_SIZE - 10, Sprite.SCALED_SIZE - 10, 0};
+  private final int[] AddToYToCheckCollision =
+      {6, 6, Sprite.SCALED_SIZE - 1, Sprite.SCALED_SIZE - 1};
 
   /**
    * Create a bomber that react to user input.
@@ -59,21 +66,33 @@ public class Bomber extends BomberCharacter {
     input = BombermanGame.canvas.getInput();
     if (input.up) {
       y -= velocity;
+      if (!canMove()) {
+        y += velocity;
+      }
       setDirection(0);
       this.setImg(Sprite.movingSprite(Sprite.playerUp, Sprite.playerUp1, Sprite.playerUp2,
           animation, timeTransfer).getFxImage());
     } else if (input.down) {
       y += velocity;
+      if (!canMove()) {
+        y -= velocity;
+      }
       setDirection(1);
       this.setImg(Sprite.movingSprite(Sprite.playerDown, Sprite.playerDown1, Sprite.playerDown2,
           animation, timeTransfer).getFxImage());
     } else if (input.left) {
       x -= velocity;
+      if (!canMove()) {
+        x += velocity;
+      }
       setDirection(2);
       this.setImg(Sprite.movingSprite(Sprite.playerLeft, Sprite.playerLeft1, Sprite.playerLeft2,
           animation, timeTransfer).getFxImage());
     } else {
       x += velocity;
+      if (!canMove()) {
+        x -= velocity;
+      }
       setDirection(3);
       this.setImg(Sprite.movingSprite(Sprite.playerRight, Sprite.playerRight1, Sprite.playerRight2,
           animation, timeTransfer).getFxImage());
@@ -82,6 +101,15 @@ public class Bomber extends BomberCharacter {
 
   @Override
   public boolean canMove() {
-    return false;
+    for (int i = 0; i < 4; i++) { // check collision for 4 corners
+      int newX = (getX() + AddToXToCheckCollision[i]) / Sprite.SCALED_SIZE;
+      int newY = (getY() + AddToYToCheckCollision[i]) / Sprite.SCALED_SIZE;
+      Entity e = BombermanGame.canvas.getEntityInCoodinate(newX, newY);
+
+      if (e instanceof Wall || e instanceof Brick) {
+        return false;
+      }
+    }
+    return true;
   }
 }

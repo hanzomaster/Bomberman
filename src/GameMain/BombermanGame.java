@@ -1,12 +1,10 @@
 package GameMain;
 
-import GameFrame.CanvasGame;
-import GameFrame.KeyboardInput;
-import entities.Entity;
-import entities.player.Bomber;
-import graphics.Sprite;
 import java.util.ArrayList;
 import java.util.List;
+import GameFrame.CanvasGame;
+import entities.Entity;
+import graphics.Sprite;
 import javafx.animation.AnimationTimer;
 import javafx.application.Application;
 import javafx.scene.Group;
@@ -16,7 +14,7 @@ import javafx.stage.Stage;
 
 public class BombermanGame extends Application {
   public static final int WIDTH = 31;
-  public static final int HEIGHT = 14;
+  public static final int HEIGHT = 13;
 
   private GraphicsContext gc;
   public static CanvasGame canvas;
@@ -56,8 +54,9 @@ public class BombermanGame extends Application {
 
     createMap();
 
-    Entity bomberman = new Bomber(1, 1, new KeyboardInput());
-    entities.add(bomberman);
+    // Entity bomberman = new Bomber(1, 1, new KeyboardInput());
+
+    entities.add(canvas.getGame().bomberman);
   }
 
   /**
