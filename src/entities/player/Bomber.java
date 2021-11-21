@@ -8,13 +8,11 @@ import entities.stillobjects.Wall;
 import graphics.Sprite;
 
 public class Bomber extends BomberCharacter {
-
-  public static final int WIDTH = 31;
-  public static final int HEIGHT = 15;
   private KeyboardInput input;
-  private final int[] AddToXToCheckCollision =
+
+  private final int[] addToXToCheckCollision =
       {0, Sprite.SCALED_SIZE - 10, Sprite.SCALED_SIZE - 10, 0};
-  private final int[] AddToYToCheckCollision =
+  private final int[] addToYToCheckCollision =
       {6, 6, Sprite.SCALED_SIZE - 1, Sprite.SCALED_SIZE - 1};
 
   /**
@@ -31,7 +29,7 @@ public class Bomber extends BomberCharacter {
   public void update() {
     animate();
 
-    input = BombermanGame.canvas.getInput();
+    input = BombermanGame.getCanvasGame().getInput();
     if (input.up || input.right || input.left || input.down) {
       setMoving(true);
     } else {
@@ -63,7 +61,7 @@ public class Bomber extends BomberCharacter {
 
   @Override
   public void calculateMove() {
-    input = BombermanGame.canvas.getInput();
+    input = BombermanGame.getCanvasGame().getInput();
     if (input.up) {
       y -= velocity;
       if (!canMove()) {
@@ -102,9 +100,9 @@ public class Bomber extends BomberCharacter {
   @Override
   public boolean canMove() {
     for (int i = 0; i < 4; i++) { // check collision for 4 corners
-      int newX = (getX() + AddToXToCheckCollision[i]) / Sprite.SCALED_SIZE;
-      int newY = (getY() + AddToYToCheckCollision[i]) / Sprite.SCALED_SIZE;
-      Entity e = BombermanGame.canvas.getEntityInCoodinate(newX, newY);
+      int newX = (getX() + addToXToCheckCollision[i]) / Sprite.SCALED_SIZE;
+      int newY = (getY() + addToYToCheckCollision[i]) / Sprite.SCALED_SIZE;
+      Entity e = BombermanGame.getCanvasGame().getEntityInCoodinate(newX, newY);
 
       if (e instanceof Wall || e instanceof Brick) {
         return false;

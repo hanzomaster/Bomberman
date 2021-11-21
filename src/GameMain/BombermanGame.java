@@ -1,10 +1,11 @@
 package GameMain;
 
-import java.util.ArrayList;
-import java.util.List;
 import GameFrame.CanvasGame;
+import GameFrame.Game;
 import entities.Entity;
 import graphics.Sprite;
+import java.util.ArrayList;
+import java.util.List;
 import javafx.animation.AnimationTimer;
 import javafx.application.Application;
 import javafx.scene.Group;
@@ -14,13 +15,15 @@ import javafx.stage.Stage;
 
 public class BombermanGame extends Application {
   public static final int WIDTH = 31;
-  public static final int HEIGHT = 13;
+  public static final int HEIGHT = 14;
 
   private GraphicsContext gc;
-  public static CanvasGame canvas;
+  private static CanvasGame canvas;
   private List<Entity> entities = new ArrayList<>();
   private List<Entity> stillObjects = new ArrayList<>();
 
+  // Player status
+  public static int timeLiving = 300;
   private static int score = 0;
   private static int lives = 3;
 
@@ -53,10 +56,7 @@ public class BombermanGame extends Application {
     timer.start();
 
     createMap();
-
-    // Entity bomberman = new Bomber(1, 1, new KeyboardInput());
-
-    entities.add(canvas.getGame().bomberman);
+    entities.add(Game.bomberman);
   }
 
   /**
@@ -79,6 +79,7 @@ public class BombermanGame extends Application {
     gc.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
     stillObjects.forEach(g -> g.render(gc));
     entities.forEach(g -> g.render(gc));
+    canvas.getGame().renderInfoOfCurrentLevel(gc);
   }
 
   public static int getScore() {
@@ -95,5 +96,9 @@ public class BombermanGame extends Application {
 
   public static void setLives(final int lives) {
     BombermanGame.lives = lives;
+  }
+
+  public static CanvasGame getCanvasGame() {
+    return canvas;
   }
 }

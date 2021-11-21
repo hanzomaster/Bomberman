@@ -1,23 +1,23 @@
 package GameFrame;
 
-import java.util.List;
 import GameMain.BombermanGame;
 import entities.Entity;
 import entities.monsters.Monster;
 import entities.player.Bomber;
 import entities.stillobjects.Grass;
+import java.util.List;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
+import timer.Timers;
 
 public class Game {
   public static String[] paths = {"src/resources/levels/Level1.txt",
       "src/resources/levels/Level2.txt", "src/resources/levels/Level3.txt",
       "src/resources/levels/Level4.txt", "src/resources/levels/Level5.txt",
       "src/resources/levels/Level6.txt", "src/resources/levels/Level7.txt"};
-  public int WIDTH;
-  public int HEIGHT;
   public boolean pause = false;
-
 
   // list to render in canvas
   private List<Grass> grasses;
@@ -59,8 +59,6 @@ public class Game {
   public void createMap() {
     if (currentLevel <= paths.length) {
       level.createMapLevel(paths[currentLevel - 1], currentLevel - 1);
-      WIDTH = level.getWidth();
-      HEIGHT = level.getHeight();
 
       originBomber = level.getBomber();
       if (currentLevel > 1) {
@@ -76,9 +74,25 @@ public class Game {
       bomberman = level.getBomber();
 
       updateEnemy(bomberman);
+
+      // timers.setInterval(BombermanGame.timeLiving);
+      // timers.setTime();
     }
   }
 
+  public void update() {
+
+  }
+
+  public void updateAllEntities() {}
+
+  /**
+   * Get enitites coordinate for collsion check. TODO: Cần tối ưu để di chuyển dễ dàng hơn
+   * 
+   * @param x position x
+   * @param y position x
+   * @return
+   */
   public Entity getEntityInCoodinate(int x, int y) {
     for (Entity e : entities) {
       if (e.getXUnit() == x && e.getYUnit() == y) {
@@ -88,12 +102,6 @@ public class Game {
     return null;
   }
 
-  public void update() {
-
-  }
-
-  public void updateAllEntities() {}
-
   public List<Entity> getCollidableEntities() {
     return entities;
   }
@@ -102,13 +110,43 @@ public class Game {
     return grasses;
   }
 
-
   /**
    * Render map.
    */
   public void render(Canvas canvas) {
     GraphicsContext gc = canvas.getGraphicsContext2D();
     gc.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
+  }
+
+  /**
+   * Render living time, score and buffs of player.
+   */
+  public void renderInfoOfCurrentLevel(GraphicsContext gc) {
+    gc.setFill(Color.BLACK);
+    gc.fillRect(0, 416, 992, 448);
+    gc.setFill(Color.WHITE);
+    gc.setFont(new Font("", 15));
+    // gc.fillText("Time left: " + formatTime(timers.getInterval()), 10, 440);
+    gc.fillText("Level: " + currentLevel, 200, 440);
+    gc.fillText("Lives: " + BombermanGame.getLives(), 300, 440);
+    gc.fillText("Scores: " + BombermanGame.getScore(), 400, 440);
+  }
+
+  /**
+   * Format the displayed time.
+   * 
+   * @param time time argument
+   * @return a String to display time in format
+   */
+  public String formatTime(int time) {
+    String res = (time / 60) + ":";
+    int second = time % 60;
+    if (second < 10) {
+      res += "0" + second;
+    } else {
+      res += second;
+    }
+    return res;
   }
 
   public void setGrassList(List<Grass> grassList) {
