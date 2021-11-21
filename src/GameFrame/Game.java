@@ -1,11 +1,11 @@
 package GameFrame;
 
+import java.util.List;
 import GameMain.BombermanGame;
 import entities.Entity;
 import entities.monsters.Monster;
 import entities.player.Bomber;
 import entities.stillobjects.Grass;
-import java.util.List;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
@@ -37,6 +37,7 @@ public class Game {
 
   private boolean gameOver = false;
   private boolean returnMainMenu = false;
+  private Timers timers = new Timers();
 
   /**
    * Create new game.
@@ -75,8 +76,8 @@ public class Game {
 
       updateEnemy(bomberman);
 
-      // timers.setInterval(BombermanGame.timeLiving);
-      // timers.setTime();
+      timers.setInterval(BombermanGame.timeLiving);
+      timers.setTime();
     }
   }
 

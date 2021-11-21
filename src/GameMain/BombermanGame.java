@@ -1,13 +1,14 @@
 package GameMain;
 
+import java.util.ArrayList;
+import java.util.List;
 import GameFrame.CanvasGame;
 import GameFrame.Game;
 import entities.Entity;
 import graphics.Sprite;
-import java.util.ArrayList;
-import java.util.List;
 import javafx.animation.AnimationTimer;
 import javafx.application.Application;
+import javafx.application.Platform;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.canvas.GraphicsContext;
@@ -42,6 +43,10 @@ public class BombermanGame extends Application {
 
     stage.setResizable(false);
     stage.setTitle(CanvasGame.TITLE);
+    stage.setOnCloseRequest(e -> {
+      Platform.exit();
+      System.exit(0);
+    });
     // Thêm scene vào stage
     stage.setScene(scene);
     stage.show();
