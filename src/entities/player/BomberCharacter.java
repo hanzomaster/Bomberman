@@ -1,5 +1,6 @@
 package entities.player;
 
+import GameFrame.KeyboardInput;
 import entities.AnimationEntity;
 import javafx.scene.image.Image;
 
@@ -48,5 +49,7 @@ public abstract class BomberCharacter extends AnimationEntity {
     public abstract void calculateMove();
 
     public abstract boolean canMove();
+
+    public abstract void setPrecision(KeyboardInput input);
 
 }
