@@ -82,10 +82,13 @@ public class Game {
   }
 
   public void update() {
-
+    updateAllEntities();
+    // this.createMap();
   }
 
-  public void updateAllEntities() {}
+  public void updateAllEntities() {
+    bomberman.update();
+  }
 
   /**
    * Get enitites coordinate for collsion check. TODO: Cần tối ưu để di chuyển dễ dàng hơn
@@ -100,6 +103,10 @@ public class Game {
         return e;
       }
     }
+    return null;
+  }
+
+  public Entity getGrass(int x, int y) {
     for (Entity e : grasses) {
       if (e.getXUnit() == x && e.getYUnit() == y) {
         return e;
@@ -122,6 +129,12 @@ public class Game {
   public void render(Canvas canvas) {
     GraphicsContext gc = canvas.getGraphicsContext2D();
     gc.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
+    grasses.forEach(e -> e.render(gc));
+    entities.forEach(e -> e.render(gc));
+    renderInfoOfCurrentLevel(gc);
+    // bomberman.bombRender(gc);
+    bomberman.bombRender(gc);
+    bomberman.render(gc);
   }
 
   /**
