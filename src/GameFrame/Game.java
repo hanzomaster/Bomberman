@@ -6,11 +6,14 @@ import entities.monsters.Monster;
 import entities.player.Bomber;
 import entities.stillobjects.Brick;
 import entities.stillobjects.Grass;
+import entities.stillobjects.Portal;
+import java.util.ArrayList;
 import java.util.List;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
+import Bomb.Bomb;
 import sounds.Sound;
 import timer.Timers;
 
@@ -139,6 +142,9 @@ public class Game {
     return null;
   }
 
+  /**
+   * Get grass list.
+   */
   public Entity getGrass(int x, int y) {
     for (Entity e : grasses) {
       if (e.getXUnit() == x && e.getYUnit() == y) {
@@ -165,7 +171,6 @@ public class Game {
     grasses.forEach(e -> e.render(gc));
     entities.forEach(e -> e.render(gc));
     renderInfoOfCurrentLevel(gc);
-    // bomberman.bombRender(gc);
     bomberman.bombRender(gc);
     bomberman.render(gc);
   }

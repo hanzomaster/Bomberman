@@ -1,9 +1,5 @@
 package entities.player;
 
-import java.util.ArrayList;
-import java.util.List;
-import Bomb.Bomb;
-import Bomb.Flame;
 import GameFrame.KeyboardInput;
 import GameMain.BombermanGame;
 import entities.Entity;
@@ -11,6 +7,11 @@ import entities.stillobjects.Brick;
 import entities.stillobjects.Grass;
 import entities.stillobjects.Wall;
 import graphics.Sprite;
+import java.util.ArrayList;
+import java.util.List;
+import javafx.scene.canvas.GraphicsContext;
+import Bomb.Bomb;
+import Bomb.Flame;
 import sounds.Sound;
 
 public class Bomber extends BomberCharacter {
