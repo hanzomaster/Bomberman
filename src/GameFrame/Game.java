@@ -100,6 +100,11 @@ public class Game {
         return e;
       }
     }
+    for (Entity e : grasses) {
+      if (e.getXUnit() == x && e.getYUnit() == y) {
+        return e;
+      }
+    }
     return null;
   }
 

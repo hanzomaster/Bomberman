@@ -4,6 +4,7 @@ import GameFrame.KeyboardInput;
 import GameMain.BombermanGame;
 import entities.Entity;
 import entities.stillobjects.Brick;
+import entities.stillobjects.Grass;
 import entities.stillobjects.Wall;
 import graphics.Sprite;
 
@@ -11,9 +12,13 @@ public class Bomber extends BomberCharacter {
   private KeyboardInput input;
 
   private final int[] addToXToCheckCollision =
-      {0, Sprite.SCALED_SIZE - 10, Sprite.SCALED_SIZE - 10, 0};
+      {2, Sprite.SCALED_SIZE - 10, Sprite.SCALED_SIZE - 10, 2};
   private final int[] addToYToCheckCollision =
-      {6, 6, Sprite.SCALED_SIZE - 1, Sprite.SCALED_SIZE - 1};
+      {3, 3, Sprite.SCALED_SIZE - 6, Sprite.SCALED_SIZE - 6};
+  private final int[] addToXToSetPrecision = {0, Sprite.SCALED_SIZE, Sprite.SCALED_SIZE - 20, 10};
+  private final int[] addToYToCSetPrecision =
+      {10, 10, Sprite.SCALED_SIZE + 1, Sprite.SCALED_SIZE + 1};
+
 
   /**
    * Create a bomber that react to user input.
@@ -52,6 +57,7 @@ public class Bomber extends BomberCharacter {
       }
     }
     if (isMoving()) {
+      // setPrecision();
       calculateMove();
     }
   }
@@ -62,8 +68,10 @@ public class Bomber extends BomberCharacter {
   @Override
   public void calculateMove() {
     input = BombermanGame.getCanvasGame().getInput();
+    // setPrecision();
     if (input.up) {
       y -= velocity;
+      // setPrecision(input);
       if (!canMove()) {
         y += velocity;
       }
@@ -72,7 +80,9 @@ public class Bomber extends BomberCharacter {
           animation, timeTransfer).getFxImage());
     } else if (input.down) {
       y += velocity;
+
       if (!canMove()) {
+        setPrecision(input);
         y -= velocity;
       }
       setDirection(1);
@@ -81,6 +91,7 @@ public class Bomber extends BomberCharacter {
     } else if (input.left) {
       x -= velocity;
       if (!canMove()) {
+        setPrecision(input);
         x += velocity;
       }
       setDirection(2);
@@ -89,7 +100,9 @@ public class Bomber extends BomberCharacter {
     } else {
       x += velocity;
       if (!canMove()) {
+        setPrecision(input);
         x -= velocity;
+
       }
       setDirection(3);
       this.setImg(Sprite.movingSprite(Sprite.playerRight, Sprite.playerRight1, Sprite.playerRight2,
@@ -109,5 +122,43 @@ public class Bomber extends BomberCharacter {
       }
     }
     return true;
+  }
+
+  @Override
+  public void setPrecision(KeyboardInput input) {
+    // TODO Auto-generated method stub
+    for (int i = 0; i < 4; i++) {
+      int newX = (getX() + addToXToCheckCollision[i]) / Sprite.SCALED_SIZE;
+      int newY = (getY() + addToYToCheckCollision[i]) / Sprite.SCALED_SIZE;
+      Entity collision = BombermanGame.getCanvasGame().getEntityInCoodinate(newX, newY);
+      int preX = (getX() + addToXToSetPrecision[i]) / Sprite.SCALED_SIZE;
+      int preY = (getY() + addToYToCSetPrecision[i]) / Sprite.SCALED_SIZE;
+      Entity check = BombermanGame.getCanvasGame().getEntityInCoodinate(preX, preY);
+      boolean isCollided = collision instanceof Wall || collision instanceof Brick;
+
+      if (check instanceof Grass && isCollided && i == 0) {
+        // System.out.println(getX() / Sprite.SCALED_SIZE);
+        // System.out.println(getY() / Sprite.SCALED_SIZE);
+        y = preY * Sprite.SCALED_SIZE;
+      }
+
+      if (check instanceof Grass && isCollided && i == 1) {
+        // System.out.println(getX() / Sprite.SCALED_SIZE);
+        // System.out.println(getY() / Sprite.SCALED_SIZE);
+        y = preY * Sprite.SCALED_SIZE;
+      }
+
+      if (check instanceof Grass && isCollided && i == 2) {
+        // System.out.println(getX() / Sprite.SCALED_SIZE);
+        // System.out.println(getY() / Sprite.SCALED_SIZE);
+        x = preX * Sprite.SCALED_SIZE + 4;
+      }
+
+      if (check instanceof Grass && isCollided && i == 3) {
+        // System.out.println(getX() / Sprite.SCALED_SIZE);
+        // System.out.println(getY() / Sprite.SCALED_SIZE);
+        x = preX * Sprite.SCALED_SIZE;
+      }
+    }
   }
 }
