@@ -52,7 +52,7 @@ public class Bomber extends BomberCharacter {
         Entity e = BombermanGame.getCanvasGame().getEntityInCoodinate(getXUnit(), getYUnit());
         if (e == null) {
           bombList.add(new Bomb(getXUnit(), getYUnit(), frameLen, this));
-          System.out.println("Bomb");
+          // System.out.println("Bomb");
           // if (!soundPlaceBomb.isRunning()) soundPlaceBomb.play();
         }
       }

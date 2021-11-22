@@ -1,11 +1,15 @@
 package GameFrame;
 
+import java.util.ArrayList;
 import java.util.List;
+import Bomb.Bomb;
 import GameMain.BombermanGame;
 import entities.Entity;
 import entities.monsters.Monster;
 import entities.player.Bomber;
+import entities.stillobjects.Brick;
 import entities.stillobjects.Grass;
+import entities.stillobjects.Portal;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
@@ -23,6 +27,7 @@ public class Game {
   private List<Grass> grasses;
   private List<Entity> entities; // list to check collision
   private List<Monster> monsters;
+  private List<Bomb> bombs = new ArrayList<>();
 
   // bomber
   public static Bomber bomberman = new Bomber(1, 1, new KeyboardInput());
@@ -88,6 +93,20 @@ public class Game {
 
   public void updateAllEntities() {
     bomberman.update();
+    for (Entity e : entities) {
+
+      if (e.getImg() == null) { // if img == null, thi xoa entity do
+        if (e instanceof Brick) {
+          if (((Brick) e).hasPortal()) {
+            this.addEntity(new Portal(e.getXUnit(), e.getYUnit()));
+          }
+        }
+        entities.remove(e);
+        break;
+      } else {
+        e.update();
+      }
+    }
   }
 
   /**
@@ -101,6 +120,13 @@ public class Game {
     for (Entity e : entities) {
       if (e.getXUnit() == x && e.getYUnit() == y) {
         return e;
+      }
+    }
+
+    bombs = bomberman.getBombList();
+    for (Bomb b : bombs) {
+      if (b.getXUnit() == x && b.getYUnit() == y) {
+        return b;
       }
     }
     return null;

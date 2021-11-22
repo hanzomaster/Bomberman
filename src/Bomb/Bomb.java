@@ -63,7 +63,7 @@ public class Bomb extends AnimationEntity {
         int x = getXUnit();
         int y = getYUnit();
 
-        // flameList.add(new Flame(x, y, 4, false));// add center
+        flameList.add(new Flame(x, y, 4, false));// add center
         // truong hop bomber o tren qua bom
         Entity e = BombermanGame.getCanvasGame().getEntityInCoodinate(x, y);
         canPassThrough(e);
