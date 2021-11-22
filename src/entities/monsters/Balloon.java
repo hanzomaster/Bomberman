@@ -34,26 +34,57 @@ public class Balloon extends Monster {
         break;
     }
 
+    for (int i = 0; i < 4; i++) {
+      int xx = tempX + AddToXToCheckCollision[i];
+      int yy = tempY + AddToYToCheckCollision[i];
+      if (!canMove(xx, yy)) {
+        if (direction == 2) {
+          setDirection(3);
+          return;
+        } else {
+          setDirection(2);
+          return;
+        }
+      }
+    }
+
     this.setX(tempX);
     this.setY(tempY);
   }
 
   @Override
   public void update() {
-    move();
-    animate();
-    if (direction == 0) {
-      this.setImg(Sprite.movingSprite(Sprite.balloomLeft1, Sprite.balloomLeft2, Sprite.balloomLeft3,
+
+    if (!isAlive) {
+      deadAnimation();
+    } else {
+      move();
+      animate();
+      ifCollideWithPowerupOrFlame();
+      if (direction == 0) {
+        this.setImg(Sprite.movingSprite(Sprite.balloomLeft1, Sprite.balloomLeft2,
+            Sprite.balloomLeft3, animation, timeTransfer).getFxImage());
+      } else if (direction == 1) {
+        this.setImg(Sprite.movingSprite(Sprite.balloomRight1, Sprite.balloomRight2,
+            Sprite.balloomRight3, animation, timeTransfer).getFxImage());
+      } else if (direction == 2) {
+        this.setImg(Sprite.movingSprite(Sprite.balloomLeft1, Sprite.balloomRight1,
+            Sprite.balloomLeft3, animation, timeTransfer).getFxImage());
+      } else if (direction == 3) {
+        this.setImg(Sprite.movingSprite(Sprite.balloomRight1, Sprite.balloomLeft2,
+            Sprite.balloomRight2, animation, timeTransfer).getFxImage());
+      }
+    }
+  }
+
+  @Override
+  public void deadAnimation() {
+    // TODO Auto-generated method stub
+    if (timeDead-- > 0) {
+      this.setImg(Sprite.movingSprite(Sprite.balloomDead, Sprite.mobDead11, Sprite.mobDead12,
           animation, timeTransfer).getFxImage());
-    } else if (direction == 1) {
-      this.setImg(Sprite.movingSprite(Sprite.balloomRight1, Sprite.balloomRight2,
-          Sprite.balloomRight3, animation, timeTransfer).getFxImage());
-    } else if (direction == 2) {
-      this.setImg(Sprite.movingSprite(Sprite.balloomLeft1, Sprite.balloomRight1,
-          Sprite.balloomLeft3, animation, timeTransfer).getFxImage());
-    } else if (direction == 3) {
-      this.setImg(Sprite.movingSprite(Sprite.balloomRight1, Sprite.balloomLeft2,
-          Sprite.balloomRight2, animation, timeTransfer).getFxImage());
+    } else {
+      this.removeFromGame();
     }
   }
 }

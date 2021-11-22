@@ -6,7 +6,7 @@ import javafx.scene.canvas.Canvas;
 public class CanvasGame extends Canvas {
   private Game game = new Game();
   private KeyboardInput input = new KeyboardInput();
-  public static final String TITLE = "Bomberman";
+  // public static final String TITLE = "Bomberman";
 
   /**
    * Create canvas.

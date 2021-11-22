@@ -1,16 +1,17 @@
 package GameMain;
 
+import java.util.ArrayList;
+import java.util.List;
 import GameFrame.CanvasGame;
 import entities.Entity;
 import graphics.Sprite;
-import java.util.ArrayList;
-import java.util.List;
 import javafx.animation.AnimationTimer;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.image.Image;
 import javafx.stage.Stage;
 
 public class BombermanGame extends Application {
@@ -43,7 +44,9 @@ public class BombermanGame extends Application {
     Scene scene = new Scene(root);
 
     stage.setResizable(false);
-    stage.setTitle(CanvasGame.TITLE);
+    Image icon = new Image("./resources/textures/icon.png");
+    stage.getIcons().add(icon);
+    stage.setTitle("Bomberman");
     stage.setOnCloseRequest(e -> {
       Platform.exit();
       System.exit(0);

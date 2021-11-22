@@ -44,6 +44,11 @@ public abstract class Entity {
     return img;
   }
 
+  public void removeFromGame() {
+    this.setImg(null);
+  }
+
+
   public int getX() {
     return x;
   }

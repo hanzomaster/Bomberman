@@ -1,5 +1,7 @@
 package Bomb;
 
+import java.util.ArrayList;
+import java.util.List;
 import GameMain.BombermanGame;
 import entities.AnimationEntity;
 import entities.Entity;
@@ -8,13 +10,12 @@ import entities.stillobjects.Brick;
 import entities.stillobjects.Portal;
 import entities.stillobjects.Wall;
 import graphics.Sprite;
-import java.util.ArrayList;
-import java.util.List;
 import javafx.scene.canvas.GraphicsContext;
 
 public class Bomb extends AnimationEntity {
   private int timeBeforeExplore = 100;
   private int timeFlame = 14;
+
   private static final int timeTransfer = 40;
   private boolean explored;
   private boolean allowPass = true;
@@ -27,6 +28,8 @@ public class Bomb extends AnimationEntity {
   /**
    * Create a bomb.
    */
+  // public Sound soundExplode = new Sound(Sound.soundExplosion);
+
   public Bomb(int x, int y, int flameLen, Bomber bomber) {
     super(x, y, Sprite.bomb.getFxImage());
     this.flameLength = flameLen;
@@ -69,8 +72,6 @@ public class Bomb extends AnimationEntity {
     // truong hop bomber o tren qua bom
     Entity e = BombermanGame.getCanvasGame().getEntityInCoodinate(x, y);
     canPassThrough(e);
-
-
 
     // check left
     int il = 1;
@@ -149,12 +150,12 @@ public class Bomb extends AnimationEntity {
     return explored;
   }
 
-  public boolean canPassThrough(Entity e) {
-    // return false if ko truyen qua dc e, true if truyen
-    // qua dc
+  public boolean canPassThrough(Entity e) { // return false if ko truyen qua dc e, true if truyen
+                                            // qua dc
+
     int gotScore = 0;
-    if (e instanceof Brick brick) {
-      brick.setDestroyed(true);
+    if (e instanceof Brick) {
+      ((Brick) e).setDestroyed(true);
       gotScore = 5;
       BombermanGame.setScore(BombermanGame.getScore() + gotScore);
       return false;
@@ -163,8 +164,8 @@ public class Bomb extends AnimationEntity {
       return false;
     }
 
-    if (e instanceof Bomb bomb) {
-      bomb.setTimeBeforeExplore(5);
+    if (e instanceof Bomb) {
+      ((Bomb) e).setTimeBeforeExplore(5);
     }
     return true;
   }

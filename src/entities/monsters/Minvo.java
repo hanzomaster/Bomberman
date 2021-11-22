@@ -53,4 +53,10 @@ public class Minvo extends Monster {
           animation, timeTransfer).getFxImage());
     }
   }
+
+  @Override
+  public void deadAnimation() {
+    // TODO Auto-generated method stub
+
+  }
 }

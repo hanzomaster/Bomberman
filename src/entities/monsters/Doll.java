@@ -52,4 +52,10 @@ public class Doll extends Monster {
           Sprite.balloomRight2, animation, timeTransfer).getFxImage());
     }
   }
+
+  @Override
+  public void deadAnimation() {
+    // TODO Auto-generated method stub
+
+  }
 }

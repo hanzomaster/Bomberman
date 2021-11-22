@@ -1,5 +1,7 @@
 package entities.player;
 
+import java.util.ArrayList;
+import java.util.List;
 import Bomb.Bomb;
 import Bomb.Flame;
 import GameFrame.KeyboardInput;
@@ -9,14 +11,12 @@ import entities.stillobjects.Brick;
 import entities.stillobjects.Grass;
 import entities.stillobjects.Wall;
 import graphics.Sprite;
-import java.util.ArrayList;
-import java.util.List;
 import javafx.scene.canvas.GraphicsContext;
 import sounds.Sound;
 
 public class Bomber extends BomberCharacter {
   private KeyboardInput input;
-  private int maxBom = 1;
+  private int maxBom = 100;
   private int frameLen = 1;
   public boolean canPassBom = false;
   public boolean canPassFlame = false;
@@ -29,9 +29,10 @@ public class Bomber extends BomberCharacter {
       {2, Sprite.SCALED_SIZE - 10, Sprite.SCALED_SIZE - 10, 2};
   private final int[] addToYToCheckCollision =
       {3, 3, Sprite.SCALED_SIZE - 6, Sprite.SCALED_SIZE - 6};
-  private final int[] addToXToSetPrecision = {0, Sprite.SCALED_SIZE, Sprite.SCALED_SIZE - 20, 10};
+  private final int[] addToXToSetPrecision =
+      {-5, Sprite.SCALED_SIZE + 5, Sprite.SCALED_SIZE - 20, 10};
   private final int[] addToYToCSetPrecision =
-      {10, 10, Sprite.SCALED_SIZE + 1, Sprite.SCALED_SIZE + 1};
+      {15, 15, Sprite.SCALED_SIZE + 1, Sprite.SCALED_SIZE + 1};
 
 
   /**

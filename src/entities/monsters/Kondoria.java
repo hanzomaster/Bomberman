@@ -54,4 +54,10 @@ public class Kondoria extends Monster {
     }
   }
 
+  @Override
+  public void deadAnimation() {
+    // TODO Auto-generated method stub
+
+  }
+
 }

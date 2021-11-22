@@ -1,5 +1,7 @@
 package GameFrame;
 
+import java.util.ArrayList;
+import java.util.List;
 import Bomb.Bomb;
 import GameMain.BombermanGame;
 import entities.Entity;
@@ -8,8 +10,6 @@ import entities.player.Bomber;
 import entities.stillobjects.Brick;
 import entities.stillobjects.Grass;
 import entities.stillobjects.Portal;
-import java.util.ArrayList;
-import java.util.List;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
@@ -62,8 +62,6 @@ public class Game {
     updateEnemy(bomberman);
   }
 
-  private void updateEnemy(Bomber bomberman) {}
-
   /**
    * Create map for each level.
    */
@@ -100,6 +98,15 @@ public class Game {
 
   public void updateAllEntities() {
     bomberman.update();
+
+    for (Entity e : monsters) {
+      if (e.getImg() == null) {
+        monsters.remove(e);
+        break;
+      } else {
+        e.update();
+      }
+    }
     for (Entity e : entities) {
 
       if (e.getImg() == null) { // if img == null, thi xoa entity do
@@ -116,6 +123,12 @@ public class Game {
       } else {
         e.update();
       }
+    }
+  }
+
+  private void updateEnemy(Bomber bomberman) {
+    for (Monster e : monsters) {
+      e.setBomber(bomberman);
     }
   }
 
@@ -170,6 +183,7 @@ public class Game {
     gc.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
     grasses.forEach(e -> e.render(gc));
     entities.forEach(e -> e.render(gc));
+    monsters.forEach(e -> e.render(gc));
     renderInfoOfCurrentLevel(gc);
     bomberman.bombRender(gc);
     bomberman.render(gc);
