@@ -5,6 +5,8 @@ import java.util.List;
 import GameMain.BombermanGame;
 import entities.AnimationEntity;
 import entities.Entity;
+import entities.monsters.Balloon;
+import entities.monsters.Monster;
 import entities.player.Bomber;
 import entities.stillobjects.Brick;
 import entities.stillobjects.Portal;
@@ -162,6 +164,18 @@ public class Bomb extends AnimationEntity {
     }
     if (e instanceof Wall || e instanceof Portal) {
       return false;
+    }
+
+    if (e instanceof Monster) {
+      ((Monster) e).setAlive(false);
+
+      if (e instanceof Balloon)
+        gotScore = 10;
+      // else if (e instanceof Oneal || e instanceof Doll) gotScore = 20;
+      // else if (e instanceof Minvo) gotScore = 30;
+      // else if (e instanceof Kondoria) gotScore = 35;
+      // else if (e instanceof Dragon) gotScore = 50;
+      BombermanGame.setScore(BombermanGame.getScore() + gotScore);
     }
 
     if (e instanceof Bomb) {

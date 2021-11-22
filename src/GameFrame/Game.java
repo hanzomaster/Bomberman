@@ -146,6 +146,12 @@ public class Game {
       }
     }
 
+    for (Monster e : monsters) {
+      if (e.getXUnit() == x && e.getYUnit() == y) {
+        return e;
+      }
+    }
+
     bombs = bomberman.getBombList();
     for (Bomb b : bombs) {
       if (b.getXUnit() == x && b.getYUnit() == y) {

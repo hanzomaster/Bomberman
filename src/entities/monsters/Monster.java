@@ -2,7 +2,6 @@ package entities.monsters;
 
 import java.util.List;
 import Bomb.Bomb;
-import Bomb.Flame;
 import GameFrame.KeyboardInput;
 import GameMain.BombermanGame;
 import entities.AnimationEntity;
@@ -61,16 +60,16 @@ public abstract class Monster extends AnimationEntity {
       // }
       e.setImg(null);
     }
-    List<Bomb> bombList = bomber.getBombList();
-    for (Bomb b : bombList) {
-      List<Flame> fl = b.getFlameList();
-      for (Flame f : fl) {
-        if (f.getXUnit() == x && f.getYUnit() == y) {
-          setAlive(false);
-          break;
-        }
-      }
-    }
+    // List<Bomb> bombList = bomber.getBombList();
+    // for (Bomb b : bombList) {
+    // List<Flame> fl = b.getFlameList();
+    // for (Flame f : fl) {
+    // if (f.getXUnit() == x && f.getYUnit() == y) {
+    // setAlive(false);
+    // break;
+    // }
+    // }
+    // }
   }
 
   public void CollideWithBomb() {
