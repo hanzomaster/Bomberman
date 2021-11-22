@@ -1,11 +1,11 @@
 package GameMain;
 
-import java.util.ArrayList;
-import java.util.List;
 import GameFrame.CanvasGame;
 import GameFrame.Game;
 import entities.Entity;
 import graphics.Sprite;
+import java.util.ArrayList;
+import java.util.List;
 import javafx.animation.AnimationTimer;
 import javafx.application.Application;
 import javafx.application.Platform;
@@ -27,6 +27,8 @@ public class BombermanGame extends Application {
   public static int timeLiving = 300;
   private static int score = 0;
   private static int lives = 3;
+
+  private static boolean mute = false;
 
   @Override
   public void start(Stage stage) {
@@ -105,5 +107,9 @@ public class BombermanGame extends Application {
 
   public static CanvasGame getCanvasGame() {
     return canvas;
+  }
+
+  public static boolean getMuted() {
+    return mute;
   }
 }

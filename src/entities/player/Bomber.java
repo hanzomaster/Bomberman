@@ -7,9 +7,13 @@ import entities.stillobjects.Brick;
 import entities.stillobjects.Grass;
 import entities.stillobjects.Wall;
 import graphics.Sprite;
+import sounds.Sound;
 
 public class Bomber extends BomberCharacter {
   private KeyboardInput input;
+
+  private Sound soundPlaceBomb = new Sound(Sound.PLACE_BOMB_SOUND);
+  private Sound soundMoving = new Sound(Sound.MOVING_SOUND);
 
   private final int[] addToXToCheckCollision =
       {2, Sprite.SCALED_SIZE - 10, Sprite.SCALED_SIZE - 10, 2};
@@ -58,7 +62,13 @@ public class Bomber extends BomberCharacter {
     }
     if (isMoving()) {
       // setPrecision();
+      if (!soundMoving.isRunning()) {
+        System.out.println("isrunning");
+        soundMoving.play();
+      }
       calculateMove();
+    } else {
+      soundMoving.stop();
     }
   }
 

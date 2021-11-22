@@ -1,11 +1,11 @@
 package GameFrame;
 
-import java.util.List;
 import GameMain.BombermanGame;
 import entities.Entity;
 import entities.monsters.Monster;
 import entities.player.Bomber;
 import entities.stillobjects.Grass;
+import java.util.List;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
@@ -47,6 +47,7 @@ public class Game {
     currentLevel = 1;
     BombermanGame.setLives(3);
     BombermanGame.setScore(0);
+    Timers.setDelay(400);
     bomberman = new Bomber(1, 1, new KeyboardInput());
     createMap();
     updateEnemy(bomberman);
@@ -88,7 +89,7 @@ public class Game {
   public void updateAllEntities() {}
 
   /**
-   * Get enitites coordinate for collsion check. TODO: Cần tối ưu để di chuyển dễ dàng hơn
+   * Get enitites coordinate for collsion check.
    * 
    * @param x position x
    * @param y position x
@@ -132,7 +133,7 @@ public class Game {
     gc.fillRect(0, 416, 992, 448);
     gc.setFill(Color.WHITE);
     gc.setFont(new Font("", 15));
-    // gc.fillText("Time left: " + formatTime(timers.getInterval()), 10, 440);
+    gc.fillText("Time left: " + formatTime(timers.getInterval()), 10, 440);
     gc.fillText("Level: " + currentLevel, 200, 440);
     gc.fillText("Lives: " + BombermanGame.getLives(), 300, 440);
     gc.fillText("Scores: " + BombermanGame.getScore(), 400, 440);
