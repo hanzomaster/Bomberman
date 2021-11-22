@@ -1,5 +1,7 @@
 package entities.player;
 
+import Bomb.Bomb;
+import Bomb.Flame;
 import GameFrame.KeyboardInput;
 import GameMain.BombermanGame;
 import entities.Entity;
@@ -10,8 +12,6 @@ import graphics.Sprite;
 import java.util.ArrayList;
 import java.util.List;
 import javafx.scene.canvas.GraphicsContext;
-import Bomb.Bomb;
-import Bomb.Flame;
 import sounds.Sound;
 
 public class Bomber extends BomberCharacter {
@@ -56,7 +56,6 @@ public class Bomber extends BomberCharacter {
         Entity e = BombermanGame.getCanvasGame().getEntityInCoodinate(getXUnit(), getYUnit());
         if (e == null) {
           bombList.add(new Bomb(getXUnit(), getYUnit(), frameLen, this));
-          // System.out.println("Bomb");
           // if (!soundPlaceBomb.isRunning()) soundPlaceBomb.play();
         }
       }
@@ -157,7 +156,6 @@ public class Bomber extends BomberCharacter {
 
   @Override
   public void setPrecision(KeyboardInput input) {
-    // TODO Auto-generated method stub
     for (int i = 0; i < 4; i++) {
       int newX = (getX() + addToXToCheckCollision[i]) / Sprite.SCALED_SIZE;
       int newY = (getY() + addToYToCheckCollision[i]) / Sprite.SCALED_SIZE;
@@ -168,26 +166,18 @@ public class Bomber extends BomberCharacter {
       boolean isCollided = collision instanceof Wall || collision instanceof Brick;
 
       if (check instanceof Grass && isCollided && i == 0) {
-        // System.out.println(getX() / Sprite.SCALED_SIZE);
-        // System.out.println(getY() / Sprite.SCALED_SIZE);
         y = preY * Sprite.SCALED_SIZE;
       }
 
       if (check instanceof Grass && isCollided && i == 1) {
-        // System.out.println(getX() / Sprite.SCALED_SIZE);
-        // System.out.println(getY() / Sprite.SCALED_SIZE);
         y = preY * Sprite.SCALED_SIZE;
       }
 
       if (check instanceof Grass && isCollided && i == 2) {
-        // System.out.println(getX() / Sprite.SCALED_SIZE);
-        // System.out.println(getY() / Sprite.SCALED_SIZE);
         x = preX * Sprite.SCALED_SIZE + 4;
       }
 
       if (check instanceof Grass && isCollided && i == 3) {
-        // System.out.println(getX() / Sprite.SCALED_SIZE);
-        // System.out.println(getY() / Sprite.SCALED_SIZE);
         x = preX * Sprite.SCALED_SIZE;
       }
     }
@@ -215,8 +205,11 @@ public class Bomber extends BomberCharacter {
     }
   }
 
+  /**
+   * Update bomb.
+   */
   public void bombUpdate() {
-    bombList.forEach(b -> b.update());
+    bombList.forEach(Bomb::update);
     for (Bomb b : bombList) {
       if (b.getImg() == null) {
         bombList.remove(b);

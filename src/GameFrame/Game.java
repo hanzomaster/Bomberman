@@ -1,5 +1,6 @@
 package GameFrame;
 
+import Bomb.Bomb;
 import GameMain.BombermanGame;
 import entities.Entity;
 import entities.monsters.Monster;
@@ -13,7 +14,6 @@ import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
-import Bomb.Bomb;
 import sounds.Sound;
 import timer.Timers;
 

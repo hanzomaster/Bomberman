@@ -40,7 +40,7 @@ public class Sound {
     this.path = path;
     File file = new File(path);
     try {
-      AudioInputStream ais = AudioSystem.getAudioInputStream(file);;
+      AudioInputStream ais = AudioSystem.getAudioInputStream(file);
       clip = AudioSystem.getClip();
       clip.open(ais);
     } catch (IOException | LineUnavailableException | UnsupportedAudioFileException e) {
@@ -97,7 +97,7 @@ public class Sound {
       clip.close();
       File file = new File(path);
       try {
-        AudioInputStream ais = AudioSystem.getAudioInputStream(file);;
+        AudioInputStream ais = AudioSystem.getAudioInputStream(file);
         clip = AudioSystem.getClip();
         clip.open(ais);
       } catch (IOException | LineUnavailableException | UnsupportedAudioFileException e) {
