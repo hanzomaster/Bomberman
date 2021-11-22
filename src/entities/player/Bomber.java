@@ -11,7 +11,7 @@ import entities.stillobjects.Brick;
 import entities.stillobjects.Grass;
 import entities.stillobjects.Wall;
 import graphics.Sprite;
-import javafx.scene.canvas.GraphicsContext;
+import sounds.Sound;
 
 public class Bomber extends BomberCharacter {
   private KeyboardInput input;
@@ -20,6 +20,9 @@ public class Bomber extends BomberCharacter {
   public boolean canPassBom = false;
   public boolean canPassFlame = false;
   private List<Bomb> bombList = new ArrayList<>();
+
+  private Sound soundPlaceBomb = new Sound(Sound.PLACE_BOMB_SOUND);
+  private Sound soundMoving = new Sound(Sound.MOVING_SOUND);
 
   private final int[] addToXToCheckCollision =
       {2, Sprite.SCALED_SIZE - 10, Sprite.SCALED_SIZE - 10, 2};
@@ -80,7 +83,12 @@ public class Bomber extends BomberCharacter {
     }
     if (isMoving()) {
       // setPrecision();
+      if (!soundMoving.isRunning()) {
+        soundMoving.play();
+      }
       calculateMove();
+    } else {
+      soundMoving.stop();
     }
   }
 
