@@ -124,6 +124,23 @@ public class Game {
         e.update();
       }
     }
+
+    if (monsters.size() == 0) {
+      bomberman.setKillAllEnemies((true));
+    }
+
+    if (bomberman.isCollideWithAPortal()) {
+      // bomberInPreLevel.restoreBomber(bomberman);
+      currentLevel++;
+      transferLevel = true;
+
+      if (currentLevel > paths.length) {
+        transferLevel = false;
+        gameOver = true;
+        return;
+      }
+      this.createMap();
+    }
   }
 
   private void updateEnemy(Bomber bomberman) {

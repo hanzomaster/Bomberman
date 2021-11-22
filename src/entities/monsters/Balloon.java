@@ -9,6 +9,7 @@ public class Balloon extends Monster {
 
   public Balloon(int xUnit, int yUnit) {
     super(xUnit, yUnit, Sprite.balloomLeft1.getFxImage());
+    direction = 2;
   }
 
   /**

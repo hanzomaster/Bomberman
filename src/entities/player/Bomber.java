@@ -9,6 +9,7 @@ import GameMain.BombermanGame;
 import entities.Entity;
 import entities.stillobjects.Brick;
 import entities.stillobjects.Grass;
+import entities.stillobjects.Portal;
 import entities.stillobjects.Wall;
 import graphics.Sprite;
 import javafx.scene.canvas.GraphicsContext;
@@ -21,6 +22,8 @@ public class Bomber extends BomberCharacter {
   public boolean canPassBom = false;
   public boolean canPassFlame = false;
   private List<Bomb> bombList = new ArrayList<>();
+  private boolean isCollideWithAPortal = false;
+  private boolean killAllEnemies = false;
 
   private Sound soundPlaceBomb = new Sound(Sound.PLACE_BOMB_SOUND);
   private Sound soundMoving = new Sound(Sound.MOVING_SOUND);
@@ -151,6 +154,11 @@ public class Bomber extends BomberCharacter {
       if (e instanceof Wall || e instanceof Brick) {
         return false;
       }
+      if (e instanceof Portal) {
+        // if (killAllEnemies) {
+        isCollideWithAPortal = true;
+        return true;
+      }
     }
     return true;
   }
@@ -221,5 +229,13 @@ public class Bomber extends BomberCharacter {
         }
       }
     }
+  }
+
+  public void setKillAllEnemies(boolean killAllEnemies) {
+    this.killAllEnemies = killAllEnemies;
+  }
+
+  public boolean isCollideWithAPortal() {
+    return isCollideWithAPortal;
   }
 }
