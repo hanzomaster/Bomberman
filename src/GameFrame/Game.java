@@ -10,6 +10,7 @@ import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
+import sounds.Sound;
 import timer.Timers;
 
 public class Game {
@@ -38,6 +39,9 @@ public class Game {
   private boolean gameOver = false;
   private boolean returnMainMenu = false;
   private Timers timers = new Timers();
+
+  // sounds
+  private Sound soundGame = new Sound(Sound.GAME_SOUND);
 
   /**
    * Create new game.
@@ -79,6 +83,8 @@ public class Game {
 
       timers.setInterval(BombermanGame.timeLiving);
       timers.setTime();
+
+      soundGame.play();
     }
   }
 
@@ -123,6 +129,10 @@ public class Game {
   public void render(Canvas canvas) {
     GraphicsContext gc = canvas.getGraphicsContext2D();
     gc.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
+
+    if (gameOver) {
+      soundGame.stop();
+    }
   }
 
   /**

@@ -63,7 +63,6 @@ public class Bomber extends BomberCharacter {
     if (isMoving()) {
       // setPrecision();
       if (!soundMoving.isRunning()) {
-        System.out.println("isrunning");
         soundMoving.play();
       }
       calculateMove();
