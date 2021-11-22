@@ -4,6 +4,7 @@ import GameMain.BombermanGame;
 import entities.Entity;
 import entities.monsters.Monster;
 import entities.player.Bomber;
+import entities.stillobjects.Brick;
 import entities.stillobjects.Grass;
 import java.util.List;
 import javafx.scene.canvas.Canvas;
@@ -24,6 +25,7 @@ public class Game {
   private List<Grass> grasses;
   private List<Entity> entities; // list to check collision
   private List<Monster> monsters;
+  private List<Bomb> bombs = new ArrayList<>();
 
   // bomber
   public static Bomber bomberman = new Bomber(1, 1, new KeyboardInput());
@@ -89,10 +91,30 @@ public class Game {
   }
 
   public void update() {
-
+    updateAllEntities();
+    // this.createMap();
   }
 
-  public void updateAllEntities() {}
+  public void updateAllEntities() {
+    bomberman.update();
+    for (Entity e : entities) {
+
+      if (e.getImg() == null) { // if img == null, thi xoa entity do
+        if (e instanceof Brick) {
+          if (((Brick) e).hasPortal()) {
+            this.addEntity(new Portal(e.getXUnit(), e.getYUnit()));
+          }
+          if (((Brick) e).hasPowerup()) {
+            this.addEntity(((Brick) e).getPowerup());
+          }
+        }
+        entities.remove(e);
+        break;
+      } else {
+        e.update();
+      }
+    }
+  }
 
   /**
    * Get enitites coordinate for collsion check.
@@ -107,6 +129,17 @@ public class Game {
         return e;
       }
     }
+
+    bombs = bomberman.getBombList();
+    for (Bomb b : bombs) {
+      if (b.getXUnit() == x && b.getYUnit() == y) {
+        return b;
+      }
+    }
+    return null;
+  }
+
+  public Entity getGrass(int x, int y) {
     for (Entity e : grasses) {
       if (e.getXUnit() == x && e.getYUnit() == y) {
         return e;
@@ -129,10 +162,12 @@ public class Game {
   public void render(Canvas canvas) {
     GraphicsContext gc = canvas.getGraphicsContext2D();
     gc.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
-
-    if (gameOver) {
-      soundGame.stop();
-    }
+    grasses.forEach(e -> e.render(gc));
+    entities.forEach(e -> e.render(gc));
+    renderInfoOfCurrentLevel(gc);
+    // bomberman.bombRender(gc);
+    bomberman.bombRender(gc);
+    bomberman.render(gc);
   }
 
   /**

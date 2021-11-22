@@ -1,5 +1,9 @@
 package entities.player;
 
+import java.util.ArrayList;
+import java.util.List;
+import Bomb.Bomb;
+import Bomb.Flame;
 import GameFrame.KeyboardInput;
 import GameMain.BombermanGame;
 import entities.Entity;
@@ -11,6 +15,11 @@ import sounds.Sound;
 
 public class Bomber extends BomberCharacter {
   private KeyboardInput input;
+  private int maxBom = 1;
+  private int frameLen = 1;
+  public boolean canPassBom = false;
+  public boolean canPassFlame = false;
+  private List<Bomb> bombList = new ArrayList<>();
 
   private Sound soundPlaceBomb = new Sound(Sound.PLACE_BOMB_SOUND);
   private Sound soundMoving = new Sound(Sound.MOVING_SOUND);
@@ -37,8 +46,20 @@ public class Bomber extends BomberCharacter {
   @Override
   public void update() {
     animate();
+    bombUpdate();
 
     input = BombermanGame.getCanvasGame().getInput();
+
+    if (input.space) {
+      if (bombList.size() < maxBom) {
+        Entity e = BombermanGame.getCanvasGame().getEntityInCoodinate(getXUnit(), getYUnit());
+        if (e == null) {
+          bombList.add(new Bomb(getXUnit(), getYUnit(), frameLen, this));
+          // System.out.println("Bomb");
+          // if (!soundPlaceBomb.isRunning()) soundPlaceBomb.play();
+        }
+      }
+    }
     if (input.up || input.right || input.left || input.down) {
       setMoving(true);
     } else {
@@ -142,7 +163,7 @@ public class Bomber extends BomberCharacter {
       Entity collision = BombermanGame.getCanvasGame().getEntityInCoodinate(newX, newY);
       int preX = (getX() + addToXToSetPrecision[i]) / Sprite.SCALED_SIZE;
       int preY = (getY() + addToYToCSetPrecision[i]) / Sprite.SCALED_SIZE;
-      Entity check = BombermanGame.getCanvasGame().getEntityInCoodinate(preX, preY);
+      Entity check = BombermanGame.getCanvasGame().getGrass(preX, preY);
       boolean isCollided = collision instanceof Wall || collision instanceof Brick;
 
       if (check instanceof Grass && isCollided && i == 0) {
@@ -167,6 +188,42 @@ public class Bomber extends BomberCharacter {
         // System.out.println(getX() / Sprite.SCALED_SIZE);
         // System.out.println(getY() / Sprite.SCALED_SIZE);
         x = preX * Sprite.SCALED_SIZE;
+      }
+    }
+  }
+
+  public List<Bomb> getBombList() {
+    return bombList;
+  }
+  //
+  // public void setCanPassBom(boolean canPassBom) {
+  // this.canPassBom = canPassBom;
+  // }
+  //
+  // public boolean isCanPassBom() {
+  // return canPassBom;
+  // }
+
+  public void bombRender(GraphicsContext gc) {
+    for (Bomb b : bombList) {
+      if (b.isExplored()) {
+        b.frameRender(gc);
+      } else {
+        b.render(gc);
+      }
+    }
+  }
+
+  public void bombUpdate() {
+    bombList.forEach(b -> b.update());
+    for (Bomb b : bombList) {
+      if (b.getImg() == null) {
+        bombList.remove(b);
+        break;
+      } else {
+        for (Flame fl : b.getFlameList()) {
+          fl.update();
+        }
       }
     }
   }

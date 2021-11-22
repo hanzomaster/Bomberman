@@ -21,7 +21,9 @@ public class CanvasGame extends Canvas {
     this.setOnKeyReleased(keyEvent -> input.updateKeyReleased(keyEvent));
   }
 
-  public void update() {}
+  public void update() {
+    game.update();
+  }
 
   public void render() {
     game.render(this);
@@ -33,6 +35,10 @@ public class CanvasGame extends Canvas {
 
   public Entity getEntityInCoodinate(int x, int y) {
     return game.getEntityInCoodinate(x, y);
+  }
+
+  public Entity getGrass(int x, int y) {
+    return game.getGrass(x, y);
   }
 
   public Game getGame() {

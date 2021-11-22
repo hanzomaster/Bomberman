@@ -1,7 +1,6 @@
 package GameMain;
 
 import GameFrame.CanvasGame;
-import GameFrame.Game;
 import entities.Entity;
 import graphics.Sprite;
 import java.util.ArrayList;
@@ -56,14 +55,15 @@ public class BombermanGame extends Application {
     AnimationTimer timer = new AnimationTimer() {
       @Override
       public void handle(long l) {
-        render();
-        update();
+        canvas.update();
+        canvas.render();
       }
     };
     timer.start();
 
     createMap();
-    entities.add(Game.bomberman);
+    // canvas.getGame().createNewGame();
+    // entities.add(Game.bomberman);
   }
 
   /**
@@ -73,20 +73,6 @@ public class BombermanGame extends Application {
     canvas.getGame().createMap();
     stillObjects.addAll(canvas.getGame().getGrassList());
     stillObjects.addAll(canvas.getGame().getCollidableEntities());
-  }
-
-  public void update() {
-    entities.forEach(Entity::update);
-  }
-
-  /**
-   * Render the game itself.
-   */
-  public void render() {
-    gc.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
-    stillObjects.forEach(g -> g.render(gc));
-    entities.forEach(g -> g.render(gc));
-    canvas.getGame().renderInfoOfCurrentLevel(gc);
   }
 
   public static int getScore() {
