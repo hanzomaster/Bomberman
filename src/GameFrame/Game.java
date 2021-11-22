@@ -100,6 +100,9 @@ public class Game {
           if (((Brick) e).hasPortal()) {
             this.addEntity(new Portal(e.getXUnit(), e.getYUnit()));
           }
+          if (((Brick) e).hasPowerup()) {
+            this.addEntity(((Brick) e).getPowerup());
+          }
         }
         entities.remove(e);
         break;
