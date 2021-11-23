@@ -1,9 +1,5 @@
 package GameFrame;
 
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.util.ArrayList;
-import java.util.List;
 import entities.Entity;
 import entities.monsters.Balloon;
 import entities.monsters.Doll;
@@ -15,6 +11,10 @@ import entities.player.Bomber;
 import entities.stillobjects.Brick;
 import entities.stillobjects.Grass;
 import entities.stillobjects.Wall;
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.util.ArrayList;
+import java.util.List;
 import powerups.BombPassItem;
 import powerups.BrickPassItem;
 import powerups.FlamePassItem;

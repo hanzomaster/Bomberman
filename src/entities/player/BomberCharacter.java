@@ -51,5 +51,4 @@ public abstract class BomberCharacter extends AnimationEntity {
   public abstract boolean canMove();
 
   public abstract void setPrecision(KeyboardInput input);
-
 }

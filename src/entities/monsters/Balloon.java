@@ -80,7 +80,6 @@ public class Balloon extends Monster {
 
   @Override
   public void deadAnimation() {
-    // TODO Auto-generated method stub
     if (timeDead-- > 0) {
       this.setImg(Sprite.movingSprite(Sprite.balloomDead, Sprite.mobDead11, Sprite.mobDead12,
           animation, timeTransfer).getFxImage());

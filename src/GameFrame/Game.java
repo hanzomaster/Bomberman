@@ -1,7 +1,5 @@
 package GameFrame;
 
-import java.util.ArrayList;
-import java.util.List;
 import Bomb.Bomb;
 import GameMain.BombermanGame;
 import entities.Entity;
@@ -10,6 +8,8 @@ import entities.player.Bomber;
 import entities.stillobjects.Brick;
 import entities.stillobjects.Grass;
 import entities.stillobjects.Portal;
+import java.util.ArrayList;
+import java.util.List;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
@@ -110,12 +110,12 @@ public class Game {
     for (Entity e : entities) {
 
       if (e.getImg() == null) { // if img == null, thi xoa entity do
-        if (e instanceof Brick) {
-          if (((Brick) e).hasPortal()) {
+        if (e instanceof Brick brick) {
+          if (brick.hasPortal()) {
             this.addEntity(new Portal(e.getXUnit(), e.getYUnit()));
           }
-          if (((Brick) e).hasPowerup()) {
-            this.addEntity(((Brick) e).getPowerup());
+          if (brick.hasPowerup()) {
+            this.addEntity(brick.getPowerup());
           }
         }
         entities.remove(e);
@@ -125,7 +125,7 @@ public class Game {
       }
     }
 
-    if (monsters.size() == 0) {
+    if (monsters.isEmpty()) {
       bomberman.setKillAllEnemies((true));
     }
 

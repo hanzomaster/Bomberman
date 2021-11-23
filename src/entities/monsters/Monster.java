@@ -1,6 +1,5 @@
 package entities.monsters;
 
-import java.util.List;
 import Bomb.Bomb;
 import GameFrame.KeyboardInput;
 import GameMain.BombermanGame;
@@ -11,6 +10,7 @@ import entities.stillobjects.Brick;
 import entities.stillobjects.Portal;
 import entities.stillobjects.Wall;
 import graphics.Sprite;
+import java.util.List;
 import javafx.scene.image.Image;
 import powerups.Powerup;
 
@@ -32,6 +32,11 @@ public abstract class Monster extends AnimationEntity {
     super(xUnit, yUnit, img);
   }
 
+  /**
+   * Check if monster can move to coordinate [x,y].
+   * 
+   * @return True if monster can go to [x,y] and false other wise
+   */
   public boolean canMove(int x, int y) {
     int xUnit = (int) x / Sprite.SCALED_SIZE;
     int yUnit = (int) y / Sprite.SCALED_SIZE;
@@ -39,16 +44,14 @@ public abstract class Monster extends AnimationEntity {
     if (this instanceof Kondoria && e instanceof Brick) {
       return true;
     }
-    if (e instanceof Wall || e instanceof Brick || e instanceof Bomb || e instanceof Portal) {
-      return false;
-    }
-
-    return true;
+    return !(e instanceof Wall || e instanceof Brick || e instanceof Bomb || e instanceof Portal);
   }
 
   public abstract void deadAnimation();
 
-
+  /**
+   * If monster collide with powerup, powerup will disappear.
+   */
   public void ifCollideWithPowerupOrFlame() {
     int x = getXUnit();
     int y = getYUnit();
@@ -72,7 +75,10 @@ public abstract class Monster extends AnimationEntity {
     // }
   }
 
-  public void CollideWithBomb() {
+  /**
+   * If collide with bomb then turn around.
+   */
+  public void collideWithBomb() {
     List<Bomb> bombs = bomber.getBombList();
     for (Bomb b : bombs) {
       if (b.getXUnit() == this.getXUnit() && b.getYUnit() == this.getYUnit()) {
@@ -89,7 +95,6 @@ public abstract class Monster extends AnimationEntity {
   public void setBomber(Bomber bomber) {
     this.bomber = bomber;
   }
-
 
   public int getVelocity() {
     return velocity;

@@ -19,7 +19,7 @@ public class Sound {
   public static final String DEAD_SOUND = "src/resources/sounds/LifeLost.wav";
   public static final String LOSE_GAME_SOUND = "src/resources/sounds/gameOver.wav";
   public static final String WIN_GAME_SOUND = "src/resources/sounds/Victory.wav";
-  public static final String MOVING_SOUND = "src/resources/sounds/moving-[AudioTrimmer.com].wav";
+  public static final String MOVING_SOUND = "src/resources/sounds/moving.wav";
   public static final String PLACE_BOMB_SOUND = "src/resources/sounds/placeBomb.wav";
 
   private String path;
@@ -57,7 +57,7 @@ public class Sound {
       return;
     }
     clip.setFramePosition(0);
-    if (path.equals(GAME_SOUND) || path.equals(MOVING_SOUND)) {
+    if (path.equals(GAME_SOUND)) {
       FloatControl gainControl = (FloatControl) clip.getControl(FloatControl.Type.MASTER_GAIN);
       gainControl.setValue(-20.0f);
       clip.loop(Clip.LOOP_CONTINUOUSLY);

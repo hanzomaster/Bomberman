@@ -1,10 +1,10 @@
 package GameMain;
 
-import java.util.ArrayList;
-import java.util.List;
 import GameFrame.CanvasGame;
 import entities.Entity;
 import graphics.Sprite;
+import java.util.ArrayList;
+import java.util.List;
 import javafx.animation.AnimationTimer;
 import javafx.application.Application;
 import javafx.application.Platform;

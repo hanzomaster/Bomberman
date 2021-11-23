@@ -1,7 +1,5 @@
 package entities.player;
 
-import java.util.ArrayList;
-import java.util.List;
 import Bomb.Bomb;
 import Bomb.Flame;
 import GameFrame.KeyboardInput;
@@ -12,6 +10,8 @@ import entities.stillobjects.Grass;
 import entities.stillobjects.Portal;
 import entities.stillobjects.Wall;
 import graphics.Sprite;
+import java.util.ArrayList;
+import java.util.List;
 import javafx.scene.canvas.GraphicsContext;
 import sounds.Sound;
 
@@ -25,7 +25,6 @@ public class Bomber extends BomberCharacter {
   private boolean isCollideWithAPortal = false;
   private boolean killAllEnemies = false;
 
-  private Sound soundPlaceBomb = new Sound(Sound.PLACE_BOMB_SOUND);
   private Sound soundMoving = new Sound(Sound.MOVING_SOUND);
 
   private final int[] addToXToCheckCollision =
@@ -55,13 +54,10 @@ public class Bomber extends BomberCharacter {
 
     input = BombermanGame.getCanvasGame().getInput();
 
-    if (input.space) {
-      if (bombList.size() < maxBom) {
-        Entity e = BombermanGame.getCanvasGame().getEntityInCoodinate(getXUnit(), getYUnit());
-        if (e == null) {
-          bombList.add(new Bomb(getXUnit(), getYUnit(), frameLen, this));
-          // if (!soundPlaceBomb.isRunning()) soundPlaceBomb.play();
-        }
+    if (input.space && bombList.size() < maxBom) {
+      Entity e = BombermanGame.getCanvasGame().getEntityInCoodinate(getXUnit(), getYUnit());
+      if (e == null) {
+        bombList.add(new Bomb(getXUnit(), getYUnit(), frameLen, this));
       }
     }
     if (input.up || input.right || input.left || input.down) {
@@ -157,6 +153,7 @@ public class Bomber extends BomberCharacter {
       if (e instanceof Portal) {
         // if (killAllEnemies) {
         isCollideWithAPortal = true;
+        soundMoving.stop();
         return true;
       }
     }
@@ -204,6 +201,9 @@ public class Bomber extends BomberCharacter {
   // return canPassBom;
   // }
 
+  /**
+   * Render bomb.
+   */
   public void bombRender(GraphicsContext gc) {
     for (Bomb b : bombList) {
       if (b.isExplored()) {

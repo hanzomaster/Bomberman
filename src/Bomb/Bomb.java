@@ -1,7 +1,5 @@
 package Bomb;
 
-import java.util.ArrayList;
-import java.util.List;
 import GameMain.BombermanGame;
 import entities.AnimationEntity;
 import entities.Entity;
@@ -12,7 +10,10 @@ import entities.stillobjects.Brick;
 import entities.stillobjects.Portal;
 import entities.stillobjects.Wall;
 import graphics.Sprite;
+import java.util.ArrayList;
+import java.util.List;
 import javafx.scene.canvas.GraphicsContext;
+import sounds.Sound;
 
 public class Bomb extends AnimationEntity {
   private int timeBeforeExplore = 100;
@@ -26,17 +27,18 @@ public class Bomb extends AnimationEntity {
   private int flameLength = 1;
   private List<Flame> flameList = new ArrayList<>();
 
+  private Sound soundPlaceBomb = new Sound(Sound.PLACE_BOMB_SOUND);
+  private Sound soundExplode = new Sound(Sound.EXPLOSION_SOUND);
 
   /**
    * Create a bomb.
    */
-  // public Sound soundExplode = new Sound(Sound.soundExplosion);
-
   public Bomb(int x, int y, int flameLen, Bomber bomber) {
     super(x, y, Sprite.bomb.getFxImage());
     this.flameLength = flameLen;
     explored = false;
     this.bomber = bomber;
+    soundPlaceBomb.play();
   }
 
   @Override
@@ -65,6 +67,9 @@ public class Bomb extends AnimationEntity {
     }
   }
 
+  /**
+   * Render bomb explosion.
+   */
   private void explosion() {
     // init FlameList
     int x = getXUnit();
@@ -142,6 +147,7 @@ public class Bomb extends AnimationEntity {
         flameList.add(new Flame(x, y + i, 1, false));
       }
     }
+    soundExplode.play();
   }
 
   public void frameRender(GraphicsContext gc) {
@@ -152,12 +158,16 @@ public class Bomb extends AnimationEntity {
     return explored;
   }
 
-  public boolean canPassThrough(Entity e) { // return false if ko truyen qua dc e, true if truyen
-                                            // qua dc
-
+  /**
+   * Determine what object can fire pass through.
+   * 
+   * @param e Entity that we take in measure
+   * @return True if fire can pass through and otherwise false
+   */
+  public boolean canPassThrough(Entity e) {
     int gotScore = 0;
-    if (e instanceof Brick) {
-      ((Brick) e).setDestroyed(true);
+    if (e instanceof Brick brick) {
+      brick.setDestroyed(true);
       gotScore = 5;
       BombermanGame.setScore(BombermanGame.getScore() + gotScore);
       return false;
@@ -166,8 +176,8 @@ public class Bomb extends AnimationEntity {
       return false;
     }
 
-    if (e instanceof Monster) {
-      ((Monster) e).setAlive(false);
+    if (e instanceof Monster monster) {
+      monster.setAlive(false);
 
       if (e instanceof Balloon)
         gotScore = 10;
@@ -178,8 +188,8 @@ public class Bomb extends AnimationEntity {
       BombermanGame.setScore(BombermanGame.getScore() + gotScore);
     }
 
-    if (e instanceof Bomb) {
-      ((Bomb) e).setTimeBeforeExplore(5);
+    if (e instanceof Bomb bomb) {
+      bomb.setTimeBeforeExplore(5);
     }
     return true;
   }
@@ -199,5 +209,4 @@ public class Bomb extends AnimationEntity {
   public void setTimeBeforeExplore(int timeBeforeExplore) {
     this.timeBeforeExplore = timeBeforeExplore;
   }
-
 }
