@@ -1,10 +1,15 @@
 package entities.monsters;
 
+import entities.monsters.moveMethod.moveType2;
 import graphics.Sprite;
 
 public class Doll extends Monster {
+  private moveType2 moveType = new moveType2();
+
   public Doll(int xUnit, int yUnit) {
     super(xUnit, yUnit, Sprite.dollLeft1.getFxImage());
+    direction = 0;
+    velocity = 1;
   }
 
   /**
@@ -18,7 +23,7 @@ public class Doll extends Monster {
         tempY = y + velocity;
         break;
       case 1:
-        tempY = y + velocity;
+        tempY = y - velocity;
         break;
       case 2:
         tempX = x - velocity;
@@ -30,32 +35,51 @@ public class Doll extends Monster {
         break;
     }
 
+    for (int i = 0; i < 4; i++) {
+      int xx = tempX + AddToXToCheckCollision[i];
+      int yy = tempY + AddToYToCheckCollision[i];
+      if (!canMove(xx, yy)) {
+        setDirection(moveType.setDirection(direction));
+        return;
+      }
+    }
+
     this.setX(tempX);
     this.setY(tempY);
   }
 
   @Override
   public void update() {
-    move();
-    animate();
-    if (direction == 0) {
-      this.setImg(Sprite.movingSprite(Sprite.balloomLeft1, Sprite.balloomLeft2, Sprite.balloomLeft3,
-          animation, timeTransfer).getFxImage());
-    } else if (direction == 1) {
-      this.setImg(Sprite.movingSprite(Sprite.balloomRight1, Sprite.balloomRight2,
-          Sprite.balloomRight3, animation, timeTransfer).getFxImage());
-    } else if (direction == 2) {
-      this.setImg(Sprite.movingSprite(Sprite.balloomLeft1, Sprite.balloomRight1,
-          Sprite.balloomLeft3, animation, timeTransfer).getFxImage());
-    } else if (direction == 3) {
-      this.setImg(Sprite.movingSprite(Sprite.balloomRight1, Sprite.balloomLeft2,
-          Sprite.balloomRight2, animation, timeTransfer).getFxImage());
+
+    if (!isAlive) {
+      deadAnimation();
+    } else {
+      move();
+      animate();
+      ifCollideWithPowerupOrFlame();
+      if (direction == 0) {
+        this.setImg(Sprite.movingSprite(Sprite.dollLeft1, Sprite.dollLeft2, Sprite.dollLeft3,
+            animation, timeTransfer).getFxImage());
+      } else if (direction == 1) {
+        this.setImg(Sprite.movingSprite(Sprite.dollRight1, Sprite.dollRight2, Sprite.dollRight3,
+            animation, timeTransfer).getFxImage());
+      } else if (direction == 2) {
+        this.setImg(Sprite.movingSprite(Sprite.dollLeft1, Sprite.dollRight1, Sprite.dollLeft3,
+            animation, timeTransfer).getFxImage());
+      } else if (direction == 3) {
+        this.setImg(Sprite.movingSprite(Sprite.dollRight1, Sprite.dollLeft2, Sprite.dollRight2,
+            animation, timeTransfer).getFxImage());
+      }
     }
   }
 
   @Override
   public void deadAnimation() {
-    // TODO Auto-generated method stub
-
+    if (timeDead-- > 0) {
+      this.setImg(Sprite.movingSprite(Sprite.dolllDead, Sprite.mobDead11, Sprite.mobDead12,
+          animation, timeTransfer).getFxImage());
+    } else {
+      this.removeFromGame();
+    }
   }
 }
