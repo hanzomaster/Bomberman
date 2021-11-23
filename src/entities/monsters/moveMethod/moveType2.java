@@ -2,11 +2,11 @@ package entities.monsters.moveMethod;
 
 public class moveType2 extends MonsterMovement {
 
-  public static boolean changeDirect = false;
+  // public static boolean changeDirect = false;
 
   @Override
   public int setDirection(int d) {
-    // TODO Auto-generated method stub
+    // Auto-generated method stub
     return randomdirect.nextInt(4);
   }
 

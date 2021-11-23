@@ -1,17 +1,21 @@
 package Bomb;
 
+import java.util.ArrayList;
+import java.util.List;
 import GameMain.BombermanGame;
 import entities.AnimationEntity;
 import entities.Entity;
 import entities.monsters.Balloon;
+import entities.monsters.Doll;
+import entities.monsters.Kondoria;
+import entities.monsters.Minvo;
 import entities.monsters.Monster;
+import entities.monsters.Oneal;
 import entities.player.Bomber;
 import entities.stillobjects.Brick;
 import entities.stillobjects.Portal;
 import entities.stillobjects.Wall;
 import graphics.Sprite;
-import java.util.ArrayList;
-import java.util.List;
 import javafx.scene.canvas.GraphicsContext;
 import sounds.Sound;
 
@@ -48,7 +52,7 @@ public class Bomb extends AnimationEntity {
       if (allowPass) {
         int subX = bomber.getX() - getX();
         int subY = bomber.getY() - getY();
-        if (subX < -20 || subX > 31 || subY > 25 || subY < -31) {
+        if (subX < -20 || subX > 31 || subY > 40 || subY < -31) {
           allowPass = false;
         }
       }
@@ -181,9 +185,12 @@ public class Bomb extends AnimationEntity {
 
       if (e instanceof Balloon)
         gotScore = 10;
-      // else if (e instanceof Oneal || e instanceof Doll) gotScore = 20;
-      // else if (e instanceof Minvo) gotScore = 30;
-      // else if (e instanceof Kondoria) gotScore = 35;
+      else if (e instanceof Oneal || e instanceof Doll)
+        gotScore = 20;
+      else if (e instanceof Minvo)
+        gotScore = 30;
+      else if (e instanceof Kondoria)
+        gotScore = 35;
       // else if (e instanceof Dragon) gotScore = 50;
       BombermanGame.setScore(BombermanGame.getScore() + gotScore);
     }

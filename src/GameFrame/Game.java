@@ -1,5 +1,7 @@
 package GameFrame;
 
+import java.util.ArrayList;
+import java.util.List;
 import Bomb.Bomb;
 import GameMain.BombermanGame;
 import entities.Entity;
@@ -8,8 +10,6 @@ import entities.player.Bomber;
 import entities.stillobjects.Brick;
 import entities.stillobjects.Grass;
 import entities.stillobjects.Portal;
-import java.util.ArrayList;
-import java.util.List;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
@@ -72,6 +72,8 @@ public class Game {
       originBomber = level.getBomber();
       if (currentLevel > 1) {
         // TODO: Thêm các trạng thái cũ vào bomber ở level mới
+        bomberman.restoreBomber(bomberInPreLevel);
+        // System.out.println();
       }
       bomberman.setX(originBomber.getX());
       bomberman.setY(originBomber.getY());
@@ -80,7 +82,7 @@ public class Game {
       grasses = level.getGrassList();
       entities = level.getCollidableEntities();
       monsters = level.getEnemyList();
-      bomberman = level.getBomber();
+      // bomberman = level.getBomber();
 
       updateEnemy(bomberman);
 
@@ -130,7 +132,7 @@ public class Game {
     }
 
     if (bomberman.isCollideWithAPortal()) {
-      // bomberInPreLevel.restoreBomber(bomberman);
+      bomberInPreLevel.restoreBomber(bomberman);
       currentLevel++;
       transferLevel = true;
 
@@ -224,6 +226,22 @@ public class Game {
     gc.fillText("Level: " + currentLevel, 200, 440);
     gc.fillText("Lives: " + BombermanGame.getLives(), 300, 440);
     gc.fillText("Scores: " + BombermanGame.getScore(), 400, 440);
+    if (bomberman.canPassFlame) {
+
+      if (bomberman.timeToStopFlame-- > 0 && bomberman.timeToStopFlame / 37 > 0) {
+        gc.fillText("Pass Flame in: " + formatTime(bomberman.timeToStopFlame / 37), 700, 440);
+      } else {
+        bomberman.canPassFlame = false;
+      }
+    }
+    if (bomberman.canPassBom) {
+      if (bomberman.timeToStopBomb-- > 0 && bomberman.timeToStopBomb / 37 > 0) {
+        gc.fillText("Pass Bomb in: " + formatTime(bomberman.timeToStopBomb / 37), 500, 440);
+      } else {
+        bomberman.canPassBom = false;
+      }
+
+    }
   }
 
   /**
