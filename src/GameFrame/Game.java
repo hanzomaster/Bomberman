@@ -96,6 +96,9 @@ public class Game {
     // this.createMap();
   }
 
+  /**
+   * Draw all entities.
+   */
   public void updateAllEntities() {
     bomberman.update();
 
@@ -108,7 +111,6 @@ public class Game {
       }
     }
     for (Entity e : entities) {
-
       if (e.getImg() == null) { // if img == null, thi xoa entity do
         if (e instanceof Brick brick) {
           if (brick.hasPortal()) {
@@ -254,4 +256,14 @@ public class Game {
   public void setTransferLevel(boolean transferLevel) {
     this.transferLevel = transferLevel;
   }
+
+
+  public boolean isReturnMainMenu() {
+    return returnMainMenu;
+  }
+
+  public void setReturnMainMenu(boolean returnMainMenu) {
+    this.returnMainMenu = returnMainMenu;
+  }
+
 }
