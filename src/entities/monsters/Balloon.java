@@ -1,11 +1,10 @@
 package entities.monsters;
 
+import entities.monsters.moveMethod.moveType1;
 import graphics.Sprite;
 
 public class Balloon extends Monster {
-
-  public static final int WIDTH = 31;
-  public static final int HEIGHT = 15;
+  private final moveType1 movetype = new moveType1();
 
   public Balloon(int xUnit, int yUnit) {
     super(xUnit, yUnit, Sprite.balloomLeft1.getFxImage());
@@ -39,13 +38,8 @@ public class Balloon extends Monster {
       int xx = tempX + AddToXToCheckCollision[i];
       int yy = tempY + AddToYToCheckCollision[i];
       if (!canMove(xx, yy)) {
-        if (direction == 2) {
-          setDirection(3);
-          return;
-        } else {
-          setDirection(2);
-          return;
-        }
+        direction = movetype.setDirection(direction);
+        return;
       }
     }
 

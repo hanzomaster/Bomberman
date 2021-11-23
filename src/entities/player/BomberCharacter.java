@@ -9,6 +9,8 @@ public abstract class BomberCharacter extends AnimationEntity {
   protected boolean alive = true;
   protected boolean moving = false;
   protected int velocity;
+  protected int timeShowDeath = 100;
+  protected boolean startDie = false;
 
   public BomberCharacter(int x, int y, Image img) {
     super(x, y, img);
@@ -51,4 +53,16 @@ public abstract class BomberCharacter extends AnimationEntity {
   public abstract boolean canMove();
 
   public abstract void setPrecision(KeyboardInput input);
+
+  public boolean isStartDie() {
+    return startDie;
+  }
+
+  public void setTimeShowDeath(int timeShowDeath) {
+    this.timeShowDeath = timeShowDeath;
+  }
+
+  public void setStartDie(boolean startDie) {
+    this.startDie = startDie;
+  }
 }

@@ -1,29 +1,34 @@
 package entities.player;
 
+import java.util.ArrayList;
+import java.util.List;
 import Bomb.Bomb;
 import Bomb.Flame;
 import GameFrame.KeyboardInput;
 import GameMain.BombermanGame;
 import entities.Entity;
+import entities.monsters.Monster;
 import entities.stillobjects.Brick;
 import entities.stillobjects.Grass;
 import entities.stillobjects.Portal;
 import entities.stillobjects.Wall;
 import graphics.Sprite;
-import java.util.ArrayList;
-import java.util.List;
 import javafx.scene.canvas.GraphicsContext;
+import powerups.Powerup;
 import sounds.Sound;
 
 public class Bomber extends BomberCharacter {
   private KeyboardInput input;
-  private int maxBom = 100;
-  private int frameLen = 1;
+  private int maxBom = 1;
+  private int frameLength = 1;
   public boolean canPassBom = false;
   public boolean canPassFlame = false;
+  private boolean canPassBrick = false;
   private List<Bomb> bombList = new ArrayList<>();
   private boolean isCollideWithAPortal = false;
   private boolean killAllEnemies = false;
+  public int timeToStopFlame = 0;
+  public int timeToStopBomb = 0;
 
   private Sound soundMoving = new Sound(Sound.MOVING_SOUND);
 
@@ -47,48 +52,83 @@ public class Bomber extends BomberCharacter {
     input = keyboardInput;
   }
 
+  public void restoreBomber(Bomber newBomber) {
+    reset();
+
+    this.input = newBomber.input;
+    this.velocity = newBomber.velocity;
+    this.maxBom = newBomber.maxBom;
+    this.frameLength = newBomber.frameLength;
+    this.canPassBom = newBomber.canPassBom;
+    this.canPassBrick = newBomber.canPassBrick;
+    this.canPassFlame = newBomber.canPassFlame;
+  }
+
+  public void reset() {
+    this.setImg(Sprite.playerDown.getFxImage());
+    this.direction = 1;
+    this.bombList = new ArrayList<>();
+    this.killAllEnemies = false;
+    this.isCollideWithAPortal = false;
+  }
+
   @Override
   public void update() {
     animate();
     bombUpdate();
+    ifCollisionWithFlameOrEnemyOrItem();
 
     input = BombermanGame.getCanvasGame().getInput();
 
-    if (input.space && bombList.size() < maxBom) {
-      Entity e = BombermanGame.getCanvasGame().getEntityInCoodinate(getXUnit(), getYUnit());
-      if (e == null) {
-        bombList.add(new Bomb(getXUnit(), getYUnit(), frameLen, this));
+    if (isStartDie()) {
+      // BombermanGame.setLives(BombermanGame.getLives() - 1);
+      if (timeShowDeath-- > 0) {
+        this.setImg(Sprite
+            .movingSprite(Sprite.playerDead1, Sprite.playerDead2, Sprite.playerDead3, animation, 30)
+            .getFxImage());
+      } else {
+        setAlive(false);
+        setStartDie(false);
+        setTimeShowDeath(100);
       }
-    }
-    if (input.up || input.right || input.left || input.down) {
-      setMoving(true);
     } else {
-      setMoving(false);
-      switch (direction) {
-        case 0:
-          this.setImg(Sprite.playerUp.getFxImage());
-          break;
-        case 1:
-          this.setImg(Sprite.playerDown.getFxImage());
-          break;
-        case 2:
-          this.setImg(Sprite.playerLeft.getFxImage());
-          break;
-        case 3:
-          this.setImg(Sprite.playerRight.getFxImage());
-          break;
-        default:
-          break;
+
+      if (input.space && bombList.size() < maxBom) {
+        Entity e = BombermanGame.getCanvasGame().getEntityInCoodinate(getXUnit(), getYUnit());
+        if (e == null) {
+          bombList.add(new Bomb(getXUnit(), getYUnit(), frameLength, this));
+        }
       }
-    }
-    if (isMoving()) {
-      // setPrecision();
-      if (!soundMoving.isRunning()) {
-        soundMoving.play();
+      if (input.up || input.right || input.left || input.down) {
+        setMoving(true);
+      } else {
+        setMoving(false);
+        switch (direction) {
+          case 0:
+            this.setImg(Sprite.playerUp.getFxImage());
+            break;
+          case 1:
+            this.setImg(Sprite.playerDown.getFxImage());
+            break;
+          case 2:
+            this.setImg(Sprite.playerLeft.getFxImage());
+            break;
+          case 3:
+            this.setImg(Sprite.playerRight.getFxImage());
+            break;
+          default:
+            break;
+        }
       }
-      calculateMove();
-    } else {
-      soundMoving.stop();
+      if (isMoving()) {
+        // setPrecision();
+        if (!soundMoving.isRunning()) {
+          soundMoving.play();
+        }
+        calculateMove();
+      } else {
+        soundMoving.stop();
+      }
     }
   }
 
@@ -147,7 +187,7 @@ public class Bomber extends BomberCharacter {
       int newY = (getY() + addToYToCheckCollision[i]) / Sprite.SCALED_SIZE;
       Entity e = BombermanGame.getCanvasGame().getEntityInCoodinate(newX, newY);
 
-      if (e instanceof Wall || e instanceof Brick) {
+      if (e instanceof Wall || (e instanceof Brick && !canPassBrick)) {
         return false;
       }
       if (e instanceof Portal) {
@@ -155,6 +195,17 @@ public class Bomber extends BomberCharacter {
         isCollideWithAPortal = true;
         soundMoving.stop();
         return true;
+      }
+      if (e instanceof Bomb) {
+        if (canPassBom) {
+          ((Bomb) e).setAllowPass(true);
+        } else {
+
+          if (((Bomb) e).isAllowPass()) {
+            continue;
+          } else
+            return false;
+        }
       }
     }
     return true;
@@ -211,6 +262,67 @@ public class Bomber extends BomberCharacter {
       } else {
         b.render(gc);
       }
+    }
+  }
+
+  public void ifCollisionWithFlameOrEnemyOrItem() {
+    int x = getXUnit();
+    int y = getYUnit();
+    for (Bomb b : bombList) {
+      List<Flame> fl = b.getFlameList();
+      for (Flame f : fl) {
+        if (f.getXUnit() == x && f.getYUnit() == y) {
+          if (!canPassFlame && !startDie) {
+            setStartDie(true);
+            new Sound(Sound.DEAD_SOUND).play();
+          }
+          break;
+        }
+      }
+    }
+    Entity e = BombermanGame.getCanvasGame().getEntityInCoodinate(x, y);
+    if (e instanceof Monster && !startDie) {
+      setStartDie(true);
+      new Sound(Sound.DEAD_SOUND).play();
+    }
+
+    if (e instanceof Powerup) {
+      new Sound(Sound.EAT_POWERUP_SOUND).play();
+      switch (((Powerup) e).getId()) {
+        case "psi":
+          if (velocity < 3) { // velocity max = 3
+            velocity++;
+          }
+          break;
+        case "pbi":
+          if (maxBom < 5) { // maxbom highest = 5
+            maxBom++;
+          }
+          break;
+        case "pfi":
+          if (frameLength < 4) { // len max = 4
+            frameLength++;
+          }
+          break;
+        case "bpi":
+          canPassBom = true;
+          timeToStopBomb += 50 * 37;
+
+          break;
+        case "fpi":
+          canPassFlame = true;
+          timeToStopFlame += 50 * 37;
+          break;
+        case "wpi":
+          canPassBrick = true; // hiem
+          break;
+        case "pli":
+          BombermanGame.setLives(BombermanGame.getLives() + 1);
+          break;
+      }
+
+      e.setImg(null);
+
     }
   }
 
