@@ -1,6 +1,7 @@
 package GameMain;
 
 import GameFrame.CanvasGame;
+import GameFrame.MenuGame;
 import entities.Entity;
 import graphics.Sprite;
 import java.util.ArrayList;
@@ -13,6 +14,7 @@ import javafx.scene.Scene;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
+import sounds.Sound;
 
 public class BombermanGame extends Application {
   public static final int WIDTH = 31;
@@ -20,6 +22,7 @@ public class BombermanGame extends Application {
 
   private GraphicsContext gc;
   private static CanvasGame canvas;
+  private MenuGame menuGame;
   private List<Entity> entities = new ArrayList<>();
   private List<Entity> stillObjects = new ArrayList<>();
 
@@ -28,7 +31,10 @@ public class BombermanGame extends Application {
   private static int score = 0;
   private static int lives = 3;
 
+  public boolean showMenu = true;
   private static boolean mute = false;
+
+  public Sound menuSound = new Sound(Sound.MENU_SOUND);
 
   @Override
   public void start(Stage stage) {
@@ -40,31 +46,62 @@ public class BombermanGame extends Application {
     Group root = new Group();
     root.getChildren().add(canvas);
 
+    stage.setResizable(false);
+    stage.setTitle("Bomberman");
+    Image icon = new Image("./resources/textures/icon.png");
+    stage.getIcons().add(icon);
+
     // Tạo scene
     Scene scene = new Scene(root);
 
-    stage.setResizable(false);
-    Image icon = new Image("./resources/textures/icon.png");
-    stage.getIcons().add(icon);
-    stage.setTitle("Bomberman");
     stage.setOnCloseRequest(e -> {
       Platform.exit();
       System.exit(0);
     });
+
     // Thêm scene vào stage
     stage.setScene(scene);
     stage.show();
 
+    menuGame = new MenuGame(canvas.getInput());
+
     AnimationTimer timer = new AnimationTimer() {
       @Override
       public void handle(long l) {
-        canvas.update();
-        canvas.render();
+        if (showMenu) {
+          menuGame.showMenu(gc);
+          menuGame.update();
+
+          if (!menuGame.isMuted() && !menuSound.isRunning()) {
+            menuSound.play();
+          } else if (menuGame.isMuted()) {
+            menuSound.stop();
+          }
+
+          if (menuGame.isQuit()) {
+            Platform.exit();
+            System.exit(0);
+          } else if (menuGame.isStartGame()) {
+            // create new map at level 1
+            canvas.getGame().createNewGame();
+
+            mute = menuGame.isMuted();
+            menuGame.setStartGame(false);
+            showMenu = false;
+            canvas.getGame().setTransferLevel(true);
+          }
+        } else {
+          menuSound.stop();
+          canvas.update();
+          canvas.render();
+          if (canvas.getGame().isReturnMainMenu()) {
+            showMenu = true;
+            canvas.getGame().setReturnMainMenu(false);
+          }
+        }
       }
     };
     timer.start();
-
-    createMap();
   }
 
   /**
@@ -98,5 +135,9 @@ public class BombermanGame extends Application {
 
   public static boolean getMuted() {
     return mute;
+  }
+
+  public static void setMuted(boolean muted) {
+    mute = muted;
   }
 }
