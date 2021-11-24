@@ -1,8 +1,14 @@
 package GameFrame;
 
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.util.ArrayList;
+import java.util.List;
 import entities.Entity;
 import entities.monsters.Balloon;
+import entities.monsters.BatMonster;
 import entities.monsters.Doll;
+import entities.monsters.Dragon;
 import entities.monsters.Kondoria;
 import entities.monsters.Minvo;
 import entities.monsters.Monster;
@@ -11,10 +17,6 @@ import entities.player.Bomber;
 import entities.stillobjects.Brick;
 import entities.stillobjects.Grass;
 import entities.stillobjects.Wall;
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.util.ArrayList;
-import java.util.List;
 import powerups.BombPassItem;
 import powerups.BrickPassItem;
 import powerups.FlamePassItem;
@@ -92,10 +94,14 @@ public class Level {
               object = new Kondoria(j, i);
               monsters.add((Kondoria) object);
               break;
-            // case '6':
-            // object = new Dragon(j, i);
-            // monsters.add((Dragon) object);
-            // break;
+            case '6':
+              object = new Dragon(j, i);
+              monsters.add((Dragon) object);
+              break;
+            case '7':
+              object = new BatMonster(j, i);
+              monsters.add((BatMonster) object);
+              break;
             case 'b':
               object = new Brick(j, i, level);
               Powerup pbi = new PlusBombItem(j, i);
