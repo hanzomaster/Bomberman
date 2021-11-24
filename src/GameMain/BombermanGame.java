@@ -2,6 +2,7 @@ package GameMain;
 
 import GameFrame.CanvasGame;
 import GameFrame.MenuGame;
+import GameFrame.PauseGame;
 import entities.Entity;
 import graphics.Sprite;
 import java.util.ArrayList;
@@ -23,6 +24,7 @@ public class BombermanGame extends Application {
   private GraphicsContext gc;
   private static CanvasGame canvas;
   private MenuGame menuGame;
+  private PauseGame pauseGame;
   private List<Entity> entities = new ArrayList<>();
   private List<Entity> stillObjects = new ArrayList<>();
 
@@ -64,6 +66,7 @@ public class BombermanGame extends Application {
     stage.show();
 
     menuGame = new MenuGame(canvas.getInput());
+    pauseGame = new PauseGame(canvas.getInput());
 
     AnimationTimer timer = new AnimationTimer() {
       @Override
@@ -90,6 +93,27 @@ public class BombermanGame extends Application {
             showMenu = false;
             canvas.getGame().setTransferLevel(true);
           }
+
+        } else if (canvas.getInput().pause) {
+          // canvas.getGame().timer.setPlay(false);
+          if (!canvas.getGame().isPause()) {
+            canvas.getGame().pauseSound();
+            canvas.getGame().setPause(true);
+          }
+          pauseGame.showPauseGame(gc);
+          pauseGame.update();
+
+          // handle selections while in game pause
+          if (pauseGame.getSelected() == 2) {
+            canvas.getInput().pause = false;
+            showMenu = true;
+          } else if (pauseGame.getSelected() == 1) {
+            canvas.getInput().pause = false;
+            canvas.getGame().resumeSound();
+            // canvas.getGame().timer.setPlay(true);
+          }
+          canvas.getGame().setPause(false);
+          pauseGame.setSelected(-1);
         } else {
           menuSound.stop();
           canvas.update();

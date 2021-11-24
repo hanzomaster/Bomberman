@@ -27,11 +27,11 @@ public class Sound {
   Clip clip;
   private long currentFrame;
 
-  public enum Status {
+  public enum SoundsStatus {
     PLAY, STOP, PAUSE
   }
 
-  private Status status;
+  private SoundsStatus status;
 
   /**
    * Constructor for creating sound from path.
@@ -68,7 +68,7 @@ public class Sound {
     }
     clip.start();
     isRunning = true;
-    status = Status.PLAY;
+    status = SoundsStatus.PLAY;
   }
 
   /**
@@ -77,7 +77,7 @@ public class Sound {
   public void stop() {
     clip.stop();
     isRunning = false;
-    status = Status.STOP;
+    status = SoundsStatus.STOP;
   }
 
   /**
@@ -87,14 +87,14 @@ public class Sound {
     clip.stop();
     isRunning = false;
     currentFrame = clip.getMicrosecondPosition();
-    status = Status.PAUSE;
+    status = SoundsStatus.PAUSE;
   }
 
   /**
    * Resume sound from pause.
    */
   public void resume() {
-    if (status == Status.PAUSE) {
+    if (status == SoundsStatus.PAUSE) {
       if (isRunning || BombermanGame.getMuted()) {
         return;
       }
@@ -114,7 +114,7 @@ public class Sound {
       clip.setMicrosecondPosition(currentFrame);
       clip.start();
       isRunning = true;
-      status = Status.PLAY;
+      status = SoundsStatus.PLAY;
     }
   }
 
@@ -126,7 +126,7 @@ public class Sound {
     isRunning = running;
   }
 
-  public Status getStatus() {
+  public SoundsStatus getStatus() {
     return status;
   }
 }

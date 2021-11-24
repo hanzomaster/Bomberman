@@ -10,7 +10,7 @@ public class Timers {
   Timer timer = new Timer();
   private int interval;
   private static int delay = 1000; // 1s
-  public static final int period = 1000; // 1s
+  private static final int PERIOD = 1000; // 1s
 
   private int check;
 
@@ -33,7 +33,7 @@ public class Timers {
           --interval;
         }
       }
-    }, delay, period);
+    }, delay, PERIOD);
   }
 
   public boolean isPlaying() {

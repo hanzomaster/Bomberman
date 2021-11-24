@@ -1,7 +1,5 @@
 package GameFrame;
 
-import java.util.ArrayList;
-import java.util.List;
 import Bomb.Bomb;
 import GameMain.BombermanGame;
 import entities.Entity;
@@ -10,19 +8,22 @@ import entities.player.Bomber;
 import entities.stillobjects.Brick;
 import entities.stillobjects.Grass;
 import entities.stillobjects.Portal;
+import java.util.ArrayList;
+import java.util.List;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import sounds.Sound;
+import sounds.Sound.SoundsStatus;
 import timer.Timers;
 
 public class Game {
-  public static String[] paths = {"src/resources/levels/Level1.txt",
+  private static String[] paths = {"src/resources/levels/Level1.txt",
       "src/resources/levels/Level2.txt", "src/resources/levels/Level3.txt",
       "src/resources/levels/Level4.txt", "src/resources/levels/Level5.txt",
       "src/resources/levels/Level6.txt", "src/resources/levels/Level7.txt"};
-  public boolean pause = false;
+  private boolean pause = false;
 
   // list to render in canvas
   private List<Grass> grasses;
@@ -36,7 +37,7 @@ public class Game {
   private Bomber originBomber;
 
   // level
-  public Level level = new Level();
+  private Level level = new Level();
   private int currentLevel = 1;
   private int timeShowTransferLevel = 150;
   private boolean transferLevel = false;
@@ -47,6 +48,11 @@ public class Game {
 
   // sounds
   private Sound soundGame = new Sound(Sound.GAME_SOUND);
+  private Sound soundLoseGame = new Sound(Sound.LOSE_GAME_SOUND);
+  private Sound soundWinGame = new Sound(Sound.WIN_GAME_SOUND);
+  private Sound soundLevelup = new Sound(Sound.TRANSFER_LEVEL_SOUND);
+  private Sound soundDead = new Sound(Sound.DEAD_SOUND);
+  private boolean musicReseted = false;
 
   /**
    * Create new game.
@@ -73,7 +79,6 @@ public class Game {
       if (currentLevel > 1) {
         // TODO: Thêm các trạng thái cũ vào bomber ở level mới
         bomberman.restoreBomber(bomberInPreLevel);
-        // System.out.println();
       }
       bomberman.setX(originBomber.getX());
       bomberman.setY(originBomber.getY());
@@ -82,7 +87,6 @@ public class Game {
       grasses = level.getGrassList();
       entities = level.getCollidableEntities();
       monsters = level.getEnemyList();
-      // bomberman = level.getBomber();
 
       updateEnemy(bomberman);
 
@@ -95,7 +99,6 @@ public class Game {
 
   public void update() {
     updateAllEntities();
-    // this.createMap();
   }
 
   /**
@@ -284,4 +287,43 @@ public class Game {
     this.returnMainMenu = returnMainMenu;
   }
 
+  public void setPause(boolean pause) {
+    this.pause = pause;
+  }
+
+  public boolean isPause() {
+    return pause;
+  }
+
+  public void pauseSound() {
+    if (soundGame.isRunning()) {
+      soundGame.pause();
+    }
+    if (soundLevelup.isRunning()) {
+      soundLevelup.pause();
+    }
+    if (soundWinGame.isRunning()) {
+      soundWinGame.pause();
+    }
+    if (soundLoseGame.isRunning()) {
+      soundLoseGame.pause();
+    }
+  }
+
+  public void resumeSound() {
+    if (soundWinGame.getStatus() == SoundsStatus.PAUSE) {
+      if (!soundGame.isRunning()) {
+        soundGame.resume();
+      }
+      if (!soundLevelup.isRunning()) {
+        soundLevelup.resume();
+      }
+      if (!soundWinGame.isRunning()) {
+        soundWinGame.resume();
+      }
+      if (!soundLoseGame.isRunning()) {
+        soundLoseGame.resume();
+      }
+    }
+  }
 }
