@@ -14,7 +14,7 @@ public class MenuGame {
 
   private KeyboardInput keyboardInput;
   private int selecting = 0;
-  private final int[] pointerCoordinate = {230, 280, 330, 380};
+  private final int[] pointerCoordinate = {235, 285, 335, 385};
 
   public MenuGame(KeyboardInput keyboardInput) {
     this.keyboardInput = keyboardInput;
@@ -25,7 +25,7 @@ public class MenuGame {
     try {
       file = new FileInputStream("src/resources/textures/menubackground.png");
       final Image backgroundImage = new Image(file);
-      file = new FileInputStream("src/resources/textures/menupointer.png");
+      file = new FileInputStream("src/resources/textures/menupointer3.png");
       final Image pointer = new Image(file);
       gc.setFill(Color.WHITE);
       gc.clearRect(0, 0, 992, 448);
