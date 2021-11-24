@@ -1,7 +1,5 @@
 package entities.player;
 
-import java.util.ArrayList;
-import java.util.List;
 import Bomb.Bomb;
 import Bomb.Flame;
 import GameFrame.KeyboardInput;
@@ -13,6 +11,8 @@ import entities.stillobjects.Grass;
 import entities.stillobjects.Portal;
 import entities.stillobjects.Wall;
 import graphics.Sprite;
+import java.util.ArrayList;
+import java.util.List;
 import javafx.scene.canvas.GraphicsContext;
 import powerups.Powerup;
 import sounds.Sound;
@@ -196,14 +196,11 @@ public class Bomber extends BomberCharacter {
         soundMoving.stop();
         return true;
       }
-      if (e instanceof Bomb) {
+      if (e instanceof Bomb bomb) {
         if (canPassBom) {
-          ((Bomb) e).setAllowPass(true);
+          bomb.setAllowPass(true);
         } else {
-
-          if (((Bomb) e).isAllowPass()) {
-            continue;
-          } else
+          if (!bomb.isAllowPass())
             return false;
         }
       }
@@ -286,9 +283,9 @@ public class Bomber extends BomberCharacter {
       new Sound(Sound.DEAD_SOUND).play();
     }
 
-    if (e instanceof Powerup) {
+    if (e instanceof Powerup powerup) {
       new Sound(Sound.EAT_POWERUP_SOUND).play();
-      switch (((Powerup) e).getId()) {
+      switch (powerup.getId()) {
         case "psi":
           if (velocity < 3) { // velocity max = 3
             velocity++;
@@ -319,10 +316,10 @@ public class Bomber extends BomberCharacter {
         case "pli":
           BombermanGame.setLives(BombermanGame.getLives() + 1);
           break;
+        default:
+          break;
       }
-
       e.setImg(null);
-
     }
   }
 

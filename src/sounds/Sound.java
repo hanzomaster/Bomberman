@@ -57,10 +57,14 @@ public class Sound {
       return;
     }
     clip.setFramePosition(0);
-    if (path.equals(GAME_SOUND)) {
+    if (path.equals(GAME_SOUND) || path.equals(MENU_SOUND)) {
+      FloatControl gainControl = (FloatControl) clip.getControl(FloatControl.Type.MASTER_GAIN);
+      gainControl.setValue(-10.0f);
+      clip.loop(Clip.LOOP_CONTINUOUSLY);
+    }
+    if (path.equals(EXPLOSION_SOUND)) {
       FloatControl gainControl = (FloatControl) clip.getControl(FloatControl.Type.MASTER_GAIN);
       gainControl.setValue(-20.0f);
-      clip.loop(Clip.LOOP_CONTINUOUSLY);
     }
     clip.start();
     isRunning = true;
@@ -104,7 +108,7 @@ public class Sound {
         e.printStackTrace();
         System.out.println("Sound.Sound()");
       }
-      if (path.equals(GAME_SOUND)) {
+      if (path.equals(GAME_SOUND) || path.equals(MENU_SOUND)) {
         clip.loop(Clip.LOOP_CONTINUOUSLY);
       }
       clip.setMicrosecondPosition(currentFrame);

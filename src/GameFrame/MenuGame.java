@@ -1,8 +1,8 @@
 package GameFrame;
 
+import GameMain.BombermanGame;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
-import GameMain.BombermanGame;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import javafx.scene.paint.Color;
@@ -20,6 +20,9 @@ public class MenuGame {
     this.keyboardInput = keyboardInput;
   }
 
+  /**
+   * Show menu.
+   */
   public void showMenu(GraphicsContext gc) {
     FileInputStream file;
     try {
