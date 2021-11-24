@@ -1,8 +1,8 @@
 package GameFrame;
 
-import GameMain.BombermanGame;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import GameMain.BombermanGame;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import javafx.scene.paint.Color;
@@ -14,7 +14,7 @@ public class MenuGame {
 
   private KeyboardInput keyboardInput;
   private int selecting = 0;
-  private final int[] pointerCoordinate = {200, 250, 300, 350};
+  private final int[] pointerCoordinate = {230, 280, 330, 380};
 
   public MenuGame(KeyboardInput keyboardInput) {
     this.keyboardInput = keyboardInput;
@@ -35,13 +35,14 @@ public class MenuGame {
       e.printStackTrace();
       System.out.println("MenuGame.showMenu()");
     }
-    gc.setFont(Font.font("JetBrains Mono", 30)); // Font
-    gc.fillText("New Game", 400, 250);
+    gc.setFont(Font.font("Impact", 30)); // Font
+    // gc.setFont(Font.font("Lobster Regular", 60));
+    gc.fillText("New Game", 400, 280);
 
     String sound = BombermanGame.getMuted() ? "off" : "on";
-    gc.fillText("Sound " + sound, 400, 300);
+    gc.fillText("Sound : " + sound, 400, 330);
 
-    gc.fillText("Quit", 400, 350);
+    gc.fillText("Quit", 400, 380);
   }
 
   public void update() {
