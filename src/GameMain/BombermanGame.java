@@ -1,12 +1,12 @@
 package GameMain;
 
-import java.util.ArrayList;
-import java.util.List;
 import GameFrame.CanvasGame;
 import GameFrame.MenuGame;
 import GameFrame.PauseGame;
 import entities.Entity;
 import graphics.Sprite;
+import java.util.ArrayList;
+import java.util.List;
 import javafx.animation.AnimationTimer;
 import javafx.application.Application;
 import javafx.application.Platform;
@@ -25,11 +25,10 @@ public class BombermanGame extends Application {
   private static CanvasGame canvas;
   private MenuGame menuGame;
   private PauseGame pauseGame;
-  private List<Entity> entities = new ArrayList<>();
   private List<Entity> stillObjects = new ArrayList<>();
 
   // Player status
-  public static int timeLiving = 300;
+  public static final int timeLiving = 300;
   private static int score = 0;
   private static int lives = 3;
 

@@ -1,7 +1,5 @@
 package GameFrame;
 
-import java.util.ArrayList;
-import java.util.List;
 import Bomb.Bomb;
 import GameMain.BombermanGame;
 import entities.Entity;
@@ -10,6 +8,8 @@ import entities.player.Bomber;
 import entities.stillobjects.Brick;
 import entities.stillobjects.Grass;
 import entities.stillobjects.Portal;
+import java.util.ArrayList;
+import java.util.List;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
@@ -51,8 +51,6 @@ public class Game {
   private Sound soundLoseGame = new Sound(Sound.LOSE_GAME_SOUND);
   private Sound soundWinGame = new Sound(Sound.WIN_GAME_SOUND);
   private Sound soundLevelup = new Sound(Sound.TRANSFER_LEVEL_SOUND);
-  private Sound soundDead = new Sound(Sound.DEAD_SOUND);
-  private boolean musicReseted = false;
 
   /**
    * Create new game.
@@ -73,6 +71,8 @@ public class Game {
    */
   public void createMap() {
     if (currentLevel <= paths.length) {
+      timers = new Timers();
+      Timers.setDelay(400);
       level.createMapLevel(paths[currentLevel - 1], currentLevel - 1);
 
       originBomber = level.getBomber();
@@ -92,13 +92,12 @@ public class Game {
 
       timers.setInterval(BombermanGame.timeLiving);
       timers.setTime();
-
-      // soundGame.play();
     }
   }
 
   public void update() {
     updateAllEntities();
+    Timers.setDelay(Timers.getDelay() + 400);
     soundGame.play();
   }
 
