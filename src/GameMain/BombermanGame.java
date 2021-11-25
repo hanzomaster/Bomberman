@@ -1,12 +1,12 @@
 package GameMain;
 
+import java.util.ArrayList;
+import java.util.List;
 import GameFrame.CanvasGame;
 import GameFrame.MenuGame;
 import GameFrame.PauseGame;
 import entities.Entity;
 import graphics.Sprite;
-import java.util.ArrayList;
-import java.util.List;
 import javafx.animation.AnimationTimer;
 import javafx.application.Application;
 import javafx.application.Platform;
@@ -72,6 +72,7 @@ public class BombermanGame extends Application {
       @Override
       public void handle(long l) {
         if (showMenu) {
+          canvas.getGame().getTimers().setPlay(false);
           menuGame.showMenu(gc);
           menuGame.update();
 
@@ -87,7 +88,7 @@ public class BombermanGame extends Application {
           } else if (menuGame.isStartGame()) {
             // create new map at level 1
             canvas.getGame().createNewGame();
-
+            canvas.getGame().getTimers().setPlay(false);
             mute = menuGame.isMuted();
             menuGame.setStartGame(false);
             showMenu = false;
@@ -95,7 +96,7 @@ public class BombermanGame extends Application {
           }
 
         } else if (canvas.getInput().pause) {
-          // canvas.getGame().timer.setPlay(false);
+          canvas.getGame().getTimers().setPlay(false);
           if (!canvas.getGame().isPause()) {
             canvas.getGame().pauseSound();
             canvas.getGame().setPause(true);
@@ -106,11 +107,13 @@ public class BombermanGame extends Application {
           // handle selections while in game pause
           if (pauseGame.getSelected() == 2) {
             canvas.getInput().pause = false;
+            canvas.getGame().getTimers().setPlay(false);
+            canvas.getGame().pauseSound();
             showMenu = true;
           } else if (pauseGame.getSelected() == 1) {
             canvas.getInput().pause = false;
             canvas.getGame().resumeSound();
-            // canvas.getGame().timer.setPlay(true);
+            canvas.getGame().getTimers().setPlay(true);
           }
           canvas.getGame().setPause(false);
           pauseGame.setSelected(-1);

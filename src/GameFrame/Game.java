@@ -1,5 +1,7 @@
 package GameFrame;
 
+import java.util.ArrayList;
+import java.util.List;
 import Bomb.Bomb;
 import GameMain.BombermanGame;
 import entities.Entity;
@@ -8,8 +10,6 @@ import entities.player.Bomber;
 import entities.stillobjects.Brick;
 import entities.stillobjects.Grass;
 import entities.stillobjects.Portal;
-import java.util.ArrayList;
-import java.util.List;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
@@ -93,12 +93,13 @@ public class Game {
       timers.setInterval(BombermanGame.timeLiving);
       timers.setTime();
 
-      soundGame.play();
+      // soundGame.play();
     }
   }
 
   public void update() {
     updateAllEntities();
+    soundGame.play();
   }
 
   /**
@@ -325,5 +326,9 @@ public class Game {
         soundLoseGame.resume();
       }
     }
+  }
+
+  public Timers getTimers() {
+    return timers;
   }
 }
