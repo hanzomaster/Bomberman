@@ -96,9 +96,17 @@ public class Game {
   }
 
   public void update() {
-    updateAllEntities();
-    Timers.setDelay(Timers.getDelay() + 400);
-    soundGame.play();
+    if (!transferLevel) {
+      updateAllEntities();
+      Timers.setDelay(Timers.getDelay() + 400);
+      if (timeShowTransferLevel == 150) {
+        soundGame.play();
+      }
+      soundLevelup.stop();
+    } else {
+      soundGame.stop();
+      soundLevelup.play();
+    }
   }
 
   /**
@@ -211,12 +219,29 @@ public class Game {
   public void render(Canvas canvas) {
     GraphicsContext gc = canvas.getGraphicsContext2D();
     gc.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
-    grasses.forEach(e -> e.render(gc));
-    entities.forEach(e -> e.render(gc));
-    monsters.forEach(e -> e.render(gc));
-    renderInfoOfCurrentLevel(gc);
-    bomberman.bombRender(gc);
-    bomberman.render(gc);
+    if (!transferLevel) {
+      renderInfoOfCurrentLevel(gc);
+      grasses.forEach(e -> e.render(gc));
+      entities.forEach(e -> e.render(gc));
+      monsters.forEach(e -> e.render(gc));
+      bomberman.bombRender(gc);
+      bomberman.render(gc);
+    } else {
+      if (timeShowTransferLevel-- > 0) {
+        renderTransferLevelScreen(gc);
+      } else {
+        transferLevel = false;
+        timeShowTransferLevel = 150;
+      }
+    }
+  }
+
+  public void renderTransferLevelScreen(GraphicsContext gc) {
+    gc.setFill(Color.BLACK);
+    gc.fillRect(0, 0, 992, 448);
+    gc.setFill(Color.WHITE);
+    gc.setFont(new Font(60));
+    gc.fillText("Level: " + currentLevel, 400, 250);
   }
 
   /**

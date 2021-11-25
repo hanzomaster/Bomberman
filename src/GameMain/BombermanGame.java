@@ -1,12 +1,12 @@
 package GameMain;
 
-import java.util.ArrayList;
-import java.util.List;
 import GameFrame.CanvasGame;
 import GameFrame.MenuGame;
 import GameFrame.PauseGame;
 import entities.Entity;
 import graphics.Sprite;
+import java.util.ArrayList;
+import java.util.List;
 import javafx.animation.AnimationTimer;
 import javafx.application.Application;
 import javafx.application.Platform;
@@ -87,7 +87,6 @@ public class BombermanGame extends Application {
           } else if (menuGame.isStartGame()) {
             // create new map at level 1
             canvas.getGame().createNewGame();
-            // canvas.getGame().getTimers().setPlay(false);
             mute = menuGame.isMuted();
             menuGame.setStartGame(false);
             showMenu = false;
