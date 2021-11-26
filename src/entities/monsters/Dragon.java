@@ -1,14 +1,18 @@
 package entities.monsters;
 
-import entities.monsters.moveMethod.moveType1;
+import entities.monsters.moveMethod.moveType2;
 import graphics.Sprite;
 
 public class Dragon extends Monster {
-  private final moveType1 movetype = new moveType1();
+  private final moveType2 movetype = new moveType2();
+  private int timeShowFire = 100;
+  private int gapTime = 250;
+  // private DragonBreathe breathe;
 
   public Dragon(int xUnit, int yUnit) {
     super(xUnit, yUnit, Sprite.balloomLeft1.getFxImage());
     direction = 2;
+    velocity = 3;
   }
 
   /**
@@ -22,7 +26,7 @@ public class Dragon extends Monster {
         tempY = y + velocity;
         break;
       case 1:
-        tempY = y + velocity;
+        tempY = y - velocity;
         break;
       case 2:
         tempX = x - velocity;

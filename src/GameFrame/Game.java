@@ -1,5 +1,9 @@
 package GameFrame;
 
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.util.ArrayList;
+import java.util.List;
 import Bomb.Bomb;
 import GameMain.BombermanGame;
 import entities.Entity;
@@ -8,10 +12,9 @@ import entities.player.Bomber;
 import entities.stillobjects.Brick;
 import entities.stillobjects.Grass;
 import entities.stillobjects.Portal;
-import java.util.ArrayList;
-import java.util.List;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.image.Image;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import sounds.Sound;
@@ -23,6 +26,8 @@ public class Game {
       "src/resources/levels/Level2.txt", "src/resources/levels/Level3.txt",
       "src/resources/levels/Level4.txt", "src/resources/levels/Level5.txt",
       "src/resources/levels/Level6.txt", "src/resources/levels/Level7.txt"};
+  private static String[] levelName = {"SCARY MEADOW", "NORTH POLE", "STEEL PRISON", "WHOLE CAKE",
+      "MARINE FORCE", "DEADLY DESERT", "CRAZY HYDRA"};
   private boolean pause = false;
 
   // list to render in canvas
@@ -237,11 +242,25 @@ public class Game {
   }
 
   public void renderTransferLevelScreen(GraphicsContext gc) {
-    gc.setFill(Color.BLACK);
-    gc.fillRect(0, 0, 992, 448);
-    gc.setFill(Color.WHITE);
-    gc.setFont(new Font(60));
-    gc.fillText("Level: " + currentLevel, 400, 250);
+    FileInputStream file;
+    try {
+      file = new FileInputStream("src/resources/textures/levelbackground.png");
+      final Image backgroundLevel = new Image(file);
+      gc.setFill(Color.WHITE);
+      gc.clearRect(0, 0, 992, 448);
+      gc.drawImage(backgroundLevel, 0, 0);
+      // gc.drawImage(pointer, 350, pointerCoordinate[selecting]);
+    } catch (FileNotFoundException e) {
+      e.printStackTrace();
+      System.out.println("MenuGame.showMenu()");
+    }
+    // gc.setFill(Color.BLACK);
+    // gc.fillRect(0, 0, 992, 448);
+    // gc.setFill(Color.WHITE);
+    gc.setFont(Font.font("Impact", 60));
+    gc.fillText("Level: " + currentLevel, 250, 200);
+    gc.setFill(Color.RED);
+    gc.fillText(levelName[currentLevel - 1], 250, 300);
   }
 
   /**

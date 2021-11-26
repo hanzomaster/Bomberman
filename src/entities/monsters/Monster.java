@@ -1,5 +1,6 @@
 package entities.monsters;
 
+import java.util.List;
 import Bomb.Bomb;
 import GameFrame.KeyboardInput;
 import GameMain.BombermanGame;
@@ -10,7 +11,6 @@ import entities.stillobjects.Brick;
 import entities.stillobjects.Portal;
 import entities.stillobjects.Wall;
 import graphics.Sprite;
-import java.util.List;
 import javafx.scene.image.Image;
 import powerups.Powerup;
 
@@ -44,8 +44,35 @@ public abstract class Monster extends AnimationEntity {
     if (this instanceof Kondoria && e instanceof Brick) {
       return true;
     }
+    if (this instanceof Dragon && recognizeBomb(x, y)) {
+      return false;
+    }
     return !(e instanceof Wall || e instanceof Brick || e instanceof Bomb || e instanceof Portal);
   }
+
+  public boolean recognizeBomb(int x, int y) {
+    int xUnit = (int) x / Sprite.SCALED_SIZE;
+    int yUnit = (int) y / Sprite.SCALED_SIZE;
+    Entity e = BombermanGame.getCanvasGame().getEntityInCoodinate(xUnit + 1, yUnit);
+    Entity e1 = BombermanGame.getCanvasGame().getEntityInCoodinate(xUnit - 1, yUnit);
+    Entity e2 = BombermanGame.getCanvasGame().getEntityInCoodinate(xUnit, yUnit + 1);
+    Entity e3 = BombermanGame.getCanvasGame().getEntityInCoodinate(xUnit, yUnit - 1);
+    if (e instanceof Bomb) {
+      return true;
+    }
+    if (e1 instanceof Bomb) {
+      return true;
+    }
+    if (e2 instanceof Bomb) {
+      return true;
+    }
+    if (e3 instanceof Bomb) {
+      return true;
+    }
+    return false;
+
+  }
+
 
   public abstract void deadAnimation();
 
