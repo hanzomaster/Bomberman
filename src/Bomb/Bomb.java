@@ -7,6 +7,7 @@ import entities.AnimationEntity;
 import entities.Entity;
 import entities.monsters.Balloon;
 import entities.monsters.Doll;
+import entities.monsters.Dragon;
 import entities.monsters.Kondoria;
 import entities.monsters.Minvo;
 import entities.monsters.Monster;
@@ -52,7 +53,7 @@ public class Bomb extends AnimationEntity {
       if (allowPass) {
         int subX = bomber.getX() - getX();
         int subY = bomber.getY() - getY();
-        if (subX < -20 || subX > 31 || subY > 40 || subY < -31) {
+        if (subX < -20 || subX > 31 || subY > 33 || subY < -31) {
           allowPass = false;
         }
       }
@@ -181,8 +182,17 @@ public class Bomb extends AnimationEntity {
     }
 
     if (e instanceof Monster monster) {
-      monster.setAlive(false);
-
+      if (monster instanceof Dragon) {
+        if (monster.getHit() == 1) {
+          monster.setAlive(false);
+        } else {
+          monster.setHit(monster.getHit() + 1);
+          monster.setVelocity(2);
+          // System.out.println(monster.getHit());
+        }
+      } else {
+        monster.setAlive(false);
+      }
       if (e instanceof Balloon)
         gotScore = 10;
       else if (e instanceof Oneal || e instanceof Doll)
@@ -191,7 +201,8 @@ public class Bomb extends AnimationEntity {
         gotScore = 30;
       else if (e instanceof Kondoria)
         gotScore = 35;
-      // else if (e instanceof Dragon) gotScore = 50;
+      else if (e instanceof Dragon)
+        gotScore = 50;
       BombermanGame.setScore(BombermanGame.getScore() + gotScore);
     }
 

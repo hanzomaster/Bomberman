@@ -1,14 +1,15 @@
 package entities.monsters;
 
-import entities.monsters.moveMethod.moveType1;
+import entities.monsters.moveMethod.moveType2;
 import graphics.Sprite;
 
 public class BatMonster extends Monster {
-  private final moveType1 movetype = new moveType1();
+  private final moveType2 movetype = new moveType2();
 
   public BatMonster(int xUnit, int yUnit) {
-    super(xUnit, yUnit, Sprite.balloomLeft1.getFxImage());
-    direction = 2;
+    super(xUnit, yUnit, Sprite.batLeft1.getFxImage());
+    direction = 3;
+    velocity = 2;
   }
 
   /**
@@ -22,7 +23,7 @@ public class BatMonster extends Monster {
         tempY = y + velocity;
         break;
       case 1:
-        tempY = y + velocity;
+        tempY = y - velocity;
         break;
       case 2:
         tempX = x - velocity;

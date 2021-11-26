@@ -1,5 +1,7 @@
 package entities.player;
 
+import java.util.ArrayList;
+import java.util.List;
 import Bomb.Bomb;
 import Bomb.Flame;
 import GameFrame.KeyboardInput;
@@ -11,8 +13,6 @@ import entities.stillobjects.Grass;
 import entities.stillobjects.Portal;
 import entities.stillobjects.Wall;
 import graphics.Sprite;
-import java.util.ArrayList;
-import java.util.List;
 import javafx.scene.canvas.GraphicsContext;
 import powerups.Powerup;
 import sounds.Sound;
@@ -297,7 +297,7 @@ public class Bomber extends BomberCharacter {
           }
           break;
         case "pfi":
-          if (frameLength < 4) { // len max = 4
+          if (frameLength < 4) { // lenght max = 4
             frameLength++;
           }
           break;

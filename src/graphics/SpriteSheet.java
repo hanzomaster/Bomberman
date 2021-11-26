@@ -17,6 +17,7 @@ public class SpriteSheet {
 
   public static final SpriteSheet tiles = new SpriteSheet("/resources/textures/classic.png", 256);
   public static final SpriteSheet dragon = new SpriteSheet("/resources/textures/dragon.png", 64);
+  public static final SpriteSheet fireMonster = new SpriteSheet("/resources/textures/fire.png", 48);
   public static final SpriteSheet batMonster =
       new SpriteSheet("/resources/textures/batmonster4.png", 64);
   public static final SpriteSheet newtiles =

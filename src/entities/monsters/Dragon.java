@@ -5,12 +5,12 @@ import graphics.Sprite;
 
 public class Dragon extends Monster {
   private final moveType2 movetype = new moveType2();
-  private int timeShowFire = 100;
-  private int gapTime = 250;
+  // private int timeShowFire = 100;
+  // private int gapTime = 250;
   // private DragonBreathe breathe;
 
   public Dragon(int xUnit, int yUnit) {
-    super(xUnit, yUnit, Sprite.balloomLeft1.getFxImage());
+    super(xUnit, yUnit, Sprite.dragonLeft1.getFxImage());
     direction = 2;
     velocity = 3;
   }
@@ -60,18 +60,22 @@ public class Dragon extends Monster {
       move();
       animate();
       ifCollideWithPowerupOrFlame();
-      if (direction == 0) {
+      if (direction == 0 && flameHit == 0) {
         this.setImg(Sprite.movingSprite(Sprite.dragonUp1, Sprite.dragonUp2, Sprite.dragonUp3,
             animation, timeTransfer).getFxImage());
-      } else if (direction == 1) {
+      } else if (direction == 1 && flameHit == 0) {
         this.setImg(Sprite.movingSprite(Sprite.dragonRight1, Sprite.dragonRight2,
             Sprite.dragonRight3, animation, timeTransfer).getFxImage());
-      } else if (direction == 2) {
+      } else if (direction == 2 && flameHit == 0) {
         this.setImg(Sprite.movingSprite(Sprite.dragonLeft1, Sprite.dragonLeft2, Sprite.dragonLeft3,
             animation, timeTransfer).getFxImage());
-      } else if (direction == 3) {
+      } else if (direction == 3 && flameHit == 0) {
         this.setImg(Sprite.movingSprite(Sprite.dragonRight1, Sprite.dragonRight2,
             Sprite.dragonRight3, animation, timeTransfer).getFxImage());
+      } else if (flameHit == 1) {
+        this.setImg(
+            Sprite.movingSprite(Sprite.fire1, Sprite.fire2, Sprite.fire3, animation, timeTransfer)
+                .getFxImage());
       }
     }
   }

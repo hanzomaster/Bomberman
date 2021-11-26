@@ -22,7 +22,8 @@ public abstract class Monster extends AnimationEntity {
   protected int direction = 0;
   // 0 up, 1 down, 2 left, 3 right
   protected Bomber bomber = new Bomber(0, 0, new KeyboardInput());
-  protected int timeDead = 20;
+  protected int timeDead = 40;
+  protected int flameHit = 0;
   public static final int[] AddToXToCheckCollision =
       {2, Sprite.SCALED_SIZE - 2, Sprite.SCALED_SIZE - 2, 2};
   public static final int[] AddToYToCheckCollision =
@@ -45,6 +46,9 @@ public abstract class Monster extends AnimationEntity {
       return true;
     }
     if (this instanceof Dragon && recognizeBomb(x, y)) {
+      return false;
+    }
+    if (this instanceof BatMonster && recognizeBomb(x, y)) {
       return false;
     }
     return !(e instanceof Wall || e instanceof Brick || e instanceof Bomb || e instanceof Portal);
@@ -82,6 +86,10 @@ public abstract class Monster extends AnimationEntity {
   public void ifCollideWithPowerupOrFlame() {
     int x = getXUnit();
     int y = getYUnit();
+    // if (this instanceof Dragon) {
+    // flameHit++;
+    // System.out.println(flameHit);
+    // }
     // enemy gap bat ky item auto se tang speed
     Entity e = BombermanGame.getCanvasGame().getEntityInCoodinate(x, y);
     if (e instanceof Powerup) {
@@ -141,5 +149,14 @@ public abstract class Monster extends AnimationEntity {
 
   public void setVelocity(int velocity) {
     this.velocity = velocity;
+  }
+
+  public void setHit(int h) {
+    this.flameHit = h;
+    // System.out.println(flameHit);
+  }
+
+  public int getHit() {
+    return flameHit;
   }
 }
