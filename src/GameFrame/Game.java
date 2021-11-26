@@ -1,9 +1,5 @@
 package GameFrame;
 
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.util.ArrayList;
-import java.util.List;
 import Bomb.Bomb;
 import GameMain.BombermanGame;
 import entities.Entity;
@@ -12,6 +8,10 @@ import entities.player.Bomber;
 import entities.stillobjects.Brick;
 import entities.stillobjects.Grass;
 import entities.stillobjects.Portal;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.util.ArrayList;
+import java.util.List;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
@@ -161,6 +161,9 @@ public class Game {
       }
       this.createMap();
     }
+    if (BombermanGame.getLives() == 0) {
+      gameOver = true;
+    }
   }
 
   private void updateEnemy(Bomber bomberman) {
@@ -239,6 +242,13 @@ public class Game {
         timeShowTransferLevel = 150;
       }
     }
+    if (gameOver) {
+      if (timeShowTransferLevel-- > 0) {
+        renderGameOver(gc);
+
+      } else {
+      }
+    }
   }
 
   public void renderTransferLevelScreen(GraphicsContext gc) {
@@ -249,14 +259,10 @@ public class Game {
       gc.setFill(Color.WHITE);
       gc.clearRect(0, 0, 992, 448);
       gc.drawImage(backgroundLevel, 0, 0);
-      // gc.drawImage(pointer, 350, pointerCoordinate[selecting]);
     } catch (FileNotFoundException e) {
       e.printStackTrace();
-      System.out.println("MenuGame.showMenu()");
+      System.out.println("Game.renderTransferLevelScreen()");
     }
-    // gc.setFill(Color.BLACK);
-    // gc.fillRect(0, 0, 992, 448);
-    // gc.setFill(Color.WHITE);
     gc.setFont(Font.font("Impact", 60));
     gc.fillText("Level: " + currentLevel, 250, 200);
     gc.setFill(Color.RED);
@@ -308,6 +314,24 @@ public class Game {
       res += second;
     }
     return res;
+  }
+
+  public void renderGameOver(GraphicsContext gc) {
+    FileInputStream file;
+    try {
+      file = new FileInputStream("src/resources/textures/levelbackground.png");
+      final Image backgroundLevel = new Image(file);
+      gc.setFill(Color.WHITE);
+      gc.clearRect(0, 0, 992, 448);
+      gc.drawImage(backgroundLevel, 0, 0);
+    } catch (FileNotFoundException e) {
+      e.printStackTrace();
+      System.out.println("Game.renderGameOver()");
+    }
+    gc.setFont(Font.font("Impact", 60));
+    String result = (BombermanGame.getLives() > 0) ? "You win" : "You lose";
+    gc.fillText("Game Over!\n" + result, 250, 200);
+    gc.setFill(Color.RED);
   }
 
   public void setGrassList(List<Grass> grassList) {

@@ -1,7 +1,5 @@
 package entities.player;
 
-import java.util.ArrayList;
-import java.util.List;
 import Bomb.Bomb;
 import Bomb.Flame;
 import GameFrame.KeyboardInput;
@@ -13,6 +11,8 @@ import entities.stillobjects.Grass;
 import entities.stillobjects.Portal;
 import entities.stillobjects.Wall;
 import graphics.Sprite;
+import java.util.ArrayList;
+import java.util.List;
 import javafx.scene.canvas.GraphicsContext;
 import powerups.Powerup;
 import sounds.Sound;
@@ -272,6 +272,7 @@ public class Bomber extends BomberCharacter {
           if (!canPassFlame && !startDie) {
             setStartDie(true);
             new Sound(Sound.DEAD_SOUND).play();
+            BombermanGame.setLives(BombermanGame.getLives() - 1);
           }
           break;
         }
@@ -281,6 +282,7 @@ public class Bomber extends BomberCharacter {
     if (e instanceof Monster && !startDie) {
       setStartDie(true);
       new Sound(Sound.DEAD_SOUND).play();
+      BombermanGame.setLives(BombermanGame.getLives() - 1);
     }
 
     if (e instanceof Powerup powerup) {

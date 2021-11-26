@@ -39,7 +39,6 @@ public class MenuGame {
       System.out.println("MenuGame.showMenu()");
     }
     gc.setFont(Font.font("Impact", 30)); // Font
-    // gc.setFont(Font.font("Lobster Regular", 60));
     gc.fillText("New Game", 400, 280);
 
     String sound = BombermanGame.getMuted() ? "off" : "on";
