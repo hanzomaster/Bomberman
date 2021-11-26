@@ -243,10 +243,14 @@ public class Game {
       }
     }
     if (gameOver) {
+      soundGame.stop();
       if (timeShowTransferLevel-- > 0) {
+        if (BombermanGame.getLives() > 0) {
+          soundWinGame.play();
+        } else {
+          soundLoseGame.play();
+        }
         renderGameOver(gc);
-
-      } else {
       }
     }
   }
@@ -378,6 +382,21 @@ public class Game {
     }
   }
 
+  public void stopSound() {
+    if (soundGame.isRunning()) {
+      soundGame.stop();
+    }
+    if (soundLevelup.isRunning()) {
+      soundLevelup.stop();
+    }
+    if (soundWinGame.isRunning()) {
+      soundWinGame.stop();
+    }
+    if (soundLoseGame.isRunning()) {
+      soundLoseGame.stop();
+    }
+  }
+
   public void resumeSound() {
     if (soundWinGame.getStatus() == SoundsStatus.PAUSE) {
       if (!soundGame.isRunning()) {
@@ -397,5 +416,13 @@ public class Game {
 
   public Timers getTimers() {
     return timers;
+  }
+
+  public boolean isOver() {
+    return gameOver;
+  }
+
+  public int getTimeShowTransferLevel() {
+    return timeShowTransferLevel;
   }
 }

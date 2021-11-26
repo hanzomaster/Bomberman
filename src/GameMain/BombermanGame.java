@@ -5,6 +5,8 @@ import GameFrame.MenuGame;
 import GameFrame.PauseGame;
 import entities.Entity;
 import graphics.Sprite;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
 import javafx.animation.AnimationTimer;
@@ -14,6 +16,7 @@ import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
+import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import sounds.Sound;
 
@@ -84,6 +87,9 @@ public class BombermanGame extends Application {
           if (menuGame.isQuit()) {
             Platform.exit();
             System.exit(0);
+          } else if (menuGame.showTutorial()) {
+            renderTutorial(gc);
+
           } else if (menuGame.isStartGame()) {
             // create new map at level 1
             canvas.getGame().createNewGame();
@@ -92,6 +98,7 @@ public class BombermanGame extends Application {
             showMenu = false;
             canvas.getGame().setTransferLevel(true);
           }
+
 
         } else if (canvas.getInput().pause) {
           canvas.getGame().getTimers().setPlay(false);
@@ -123,10 +130,16 @@ public class BombermanGame extends Application {
             showMenu = true;
             canvas.getGame().setReturnMainMenu(false);
           }
+          if (canvas.getGame().isOver() && canvas.getGame().getTimeShowTransferLevel() == 0) {
+            canvas.getGame().stopSound();
+            showMenu = true;
+            canvas.getGame().setReturnMainMenu(false);
+          }
         }
       }
     };
     timer.start();
+
   }
 
   /**
@@ -136,6 +149,23 @@ public class BombermanGame extends Application {
     canvas.getGame().createMap();
     stillObjects.addAll(canvas.getGame().getGrassList());
     stillObjects.addAll(canvas.getGame().getCollidableEntities());
+  }
+
+  /**
+   * Render game tutorial.
+   */
+  public void renderTutorial(GraphicsContext gc) {
+    FileInputStream file;
+    try {
+      file = new FileInputStream("src/resources/textures/Tutorial.png");
+      final Image backgroundLevel = new Image(file);
+      gc.setFill(Color.WHITE);
+      gc.clearRect(0, 0, 992, 448);
+      gc.drawImage(backgroundLevel, 0, 0);
+    } catch (FileNotFoundException e) {
+      e.printStackTrace();
+      System.out.println("MenuGame.renderTutorial()");
+    }
   }
 
   public static int getScore() {

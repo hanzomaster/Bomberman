@@ -10,6 +10,7 @@ import javafx.scene.text.Font;
 
 public class MenuGame {
   private boolean startGame = false;
+  private boolean tutorial = false;
   private boolean quit = false;
 
   private KeyboardInput keyboardInput;
@@ -40,15 +41,15 @@ public class MenuGame {
     }
     gc.setFont(Font.font("Impact", 30)); // Font
     gc.fillText("New Game", 400, 280);
-
     String sound = BombermanGame.getMuted() ? "off" : "on";
     gc.fillText("Sound : " + sound, 400, 330);
+    gc.fillText("Tutorial", 400, 380);
 
-    gc.fillText("Quit", 400, 380);
+    gc.fillText("Quit", 400, 430);
   }
 
   public void update() {
-    if (!keyboardInput.release && keyboardInput.down && selecting < 2) {
+    if (!keyboardInput.release && keyboardInput.down && selecting < 3) {
       selecting++;
       keyboardInput.setRelease(true);
     } else if (!keyboardInput.release && keyboardInput.up && selecting > 0) {
@@ -64,6 +65,9 @@ public class MenuGame {
           BombermanGame.setMuted(!BombermanGame.getMuted());
           break;
         case 2:
+          tutorial = true;
+          break;
+        case 3:
           quit = true;
           break;
         default:
@@ -87,5 +91,9 @@ public class MenuGame {
 
   public boolean isQuit() {
     return quit;
+  }
+
+  public boolean showTutorial() {
+    return tutorial;
   }
 }
