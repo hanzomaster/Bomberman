@@ -1,8 +1,8 @@
 package GameFrame;
 
-import GameMain.BombermanGame;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import GameMain.BombermanGame;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import javafx.scene.paint.Color;
@@ -95,5 +95,9 @@ public class MenuGame {
 
   public boolean showTutorial() {
     return tutorial;
+  }
+
+  public void setShowTutorial(boolean p) {
+    this.tutorial = p;
   }
 }

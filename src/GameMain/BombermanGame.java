@@ -1,14 +1,14 @@
 package GameMain;
 
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.util.ArrayList;
+import java.util.List;
 import GameFrame.CanvasGame;
 import GameFrame.MenuGame;
 import GameFrame.PauseGame;
 import entities.Entity;
 import graphics.Sprite;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.util.ArrayList;
-import java.util.List;
 import javafx.animation.AnimationTimer;
 import javafx.application.Application;
 import javafx.application.Platform;
@@ -89,6 +89,11 @@ public class BombermanGame extends Application {
             System.exit(0);
           } else if (menuGame.showTutorial()) {
             renderTutorial(gc);
+            if (canvas.getInput().backspace || canvas.getInput().space) {
+              showMenu = true;
+              // System.out.println("Backspace");
+              menuGame.setShowTutorial(false);
+            }
 
           } else if (menuGame.isStartGame()) {
             // create new map at level 1
@@ -130,7 +135,7 @@ public class BombermanGame extends Application {
             showMenu = true;
             canvas.getGame().setReturnMainMenu(false);
           }
-          if (canvas.getGame().isOver() && canvas.getGame().getTimeShowTransferLevel() == 0) {
+          if (canvas.getGame().isOver() && canvas.getGame().getTimeShowGameOver() == 0) {
             canvas.getGame().stopSound();
             showMenu = true;
             canvas.getGame().setReturnMainMenu(false);
