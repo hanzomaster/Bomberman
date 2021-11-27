@@ -3,13 +3,13 @@ package entities.monsters;
 import entities.monsters.moveMethod.moveType2;
 import graphics.Sprite;
 
-public class Dragon extends Monster {
+public class Phoenix extends Monster {
   private final moveType2 movetype = new moveType2();
   // private int timeShowFire = 100;
   // private int gapTime = 250;
   // private DragonBreathe breathe;
 
-  public Dragon(int xUnit, int yUnit) {
+  public Phoenix(int xUnit, int yUnit) {
     super(xUnit, yUnit, Sprite.dragonLeft1.getFxImage());
     direction = 2;
     velocity = 3;
@@ -61,17 +61,17 @@ public class Dragon extends Monster {
       animate();
       ifCollideWithPowerupOrFlame();
       if (direction == 0 && flameHit == 0) {
-        this.setImg(Sprite.movingSprite(Sprite.dragonUp1, Sprite.dragonUp2, Sprite.dragonUp3,
+        this.setImg(Sprite.movingSprite(Sprite.phoenixUp1, Sprite.phoenixUp2, Sprite.phoenixUp3,
             animation, timeTransfer).getFxImage());
       } else if (direction == 1 && flameHit == 0) {
-        this.setImg(Sprite.movingSprite(Sprite.dragonDown1, Sprite.dragonDown2, Sprite.dragonDown3,
-            animation, timeTransfer).getFxImage());
+        this.setImg(Sprite.movingSprite(Sprite.phoenixDown1, Sprite.phoenixDown2,
+            Sprite.phoenixDown3, animation, timeTransfer).getFxImage());
       } else if (direction == 2 && flameHit == 0) {
-        this.setImg(Sprite.movingSprite(Sprite.dragonLeft1, Sprite.dragonLeft2, Sprite.dragonLeft3,
-            animation, timeTransfer).getFxImage());
+        this.setImg(Sprite.movingSprite(Sprite.phoenixLeft1, Sprite.phoenixLeft2,
+            Sprite.phoenixLeft3, animation, timeTransfer).getFxImage());
       } else if (direction == 3 && flameHit == 0) {
-        this.setImg(Sprite.movingSprite(Sprite.dragonRight1, Sprite.dragonRight2,
-            Sprite.dragonRight3, animation, timeTransfer).getFxImage());
+        this.setImg(Sprite.movingSprite(Sprite.phoenixRight1, Sprite.phoenixRight2,
+            Sprite.phoenixRight3, animation, timeTransfer).getFxImage());
       } else if (flameHit == 1) {
         this.setImg(
             Sprite.movingSprite(Sprite.fire1, Sprite.fire2, Sprite.fire3, animation, timeTransfer)
@@ -83,7 +83,7 @@ public class Dragon extends Monster {
   @Override
   public void deadAnimation() {
     if (timeDead-- > 0) {
-      this.setImg(Sprite.movingSprite(Sprite.dragonDown1, Sprite.mobDead11, Sprite.mobDead12,
+      this.setImg(Sprite.movingSprite(Sprite.phoenixDown1, Sprite.mobDead11, Sprite.mobDead12,
           animation, timeTransfer).getFxImage());
     } else {
       this.removeFromGame();

@@ -13,6 +13,7 @@ import entities.monsters.Kondoria;
 import entities.monsters.Minvo;
 import entities.monsters.Monster;
 import entities.monsters.Oneal;
+import entities.monsters.Phoenix;
 import entities.player.Bomber;
 import entities.stillobjects.Brick;
 import entities.stillobjects.Grass;
@@ -101,6 +102,10 @@ public class Level {
             case '7':
               object = new BatMonster(j, i);
               monsters.add((BatMonster) object);
+              break;
+            case '8':
+              object = new Phoenix(j, i);
+              monsters.add((Phoenix) object);
               break;
             case 'b':
               object = new Brick(j, i, level);
