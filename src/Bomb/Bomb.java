@@ -12,6 +12,7 @@ import entities.monsters.Kondoria;
 import entities.monsters.Minvo;
 import entities.monsters.Monster;
 import entities.monsters.Oneal;
+import entities.monsters.Phoenix;
 import entities.player.Bomber;
 import entities.stillobjects.Brick;
 import entities.stillobjects.Portal;
@@ -38,9 +39,9 @@ public class Bomb extends AnimationEntity {
   /**
    * Create a bomb.
    */
-  public Bomb(int x, int y, int flameLen, Bomber bomber) {
+  public Bomb(int x, int y, int flameLength, Bomber bomber) {
     super(x, y, Sprite.bomb.getFxImage());
-    this.flameLength = flameLen;
+    this.flameLength = flameLength;
     explored = false;
     this.bomber = bomber;
     soundPlaceBomb.play();
@@ -188,6 +189,15 @@ public class Bomb extends AnimationEntity {
         } else {
           monster.setHit(monster.getHit() + 1);
           monster.setVelocity(2);
+          // System.out.println(monster.getHit());
+        }
+
+      } else if (monster instanceof Phoenix) {
+        if (monster.getHit() == 1) {
+          monster.setAlive(false);
+        } else {
+          monster.setHit(monster.getHit() + 1);
+          monster.setVelocity(4);
           // System.out.println(monster.getHit());
         }
       } else {

@@ -5,7 +5,7 @@ import graphics.Sprite;
 
 public class Phoenix extends Monster {
   private final moveType2 movetype = new moveType2();
-  // private int timeShowFire = 100;
+  private int timeShowFire = 500;
   // private int gapTime = 250;
   // private DragonBreathe breathe;
 
@@ -73,6 +73,12 @@ public class Phoenix extends Monster {
         this.setImg(Sprite.movingSprite(Sprite.phoenixRight1, Sprite.phoenixRight2,
             Sprite.phoenixRight3, animation, timeTransfer).getFxImage());
       } else if (flameHit == 1) {
+        timeShowFire--;
+        if (timeShowFire == 0) {
+          flameHit--;
+          timeShowFire = 500;
+          velocity = 3;
+        }
         this.setImg(
             Sprite.movingSprite(Sprite.fire1, Sprite.fire2, Sprite.fire3, animation, timeTransfer)
                 .getFxImage());

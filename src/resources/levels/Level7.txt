@@ -1,8 +1,8 @@
 7 13 31
 ###############################
-#xp           b          6   x#
+#xp           b          8   x#
 # # # # # # # # # # # # # # # #
-#            6                #
+#            8                #
 # # # # # # # # # # # # # # # #
 #             s      7        #
 #B# # # # # # f # # # # # # #F#
@@ -34,6 +34,8 @@ p - Bomber
 4 - Minvo
 5 - Kondonria
 6 - Dragon
+7 - batMonster
+8 - Phoenix
 Items:
 b - Bomb Item
 f - Flame Item

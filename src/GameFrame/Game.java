@@ -64,7 +64,7 @@ public class Game {
   public void createNewGame() {
     gameOver = false;
     currentLevel = 1;
-    BombermanGame.setLives(3);
+    BombermanGame.setLives(1000);
     BombermanGame.setScore(0);
     Timers.setDelay(400);
     bomberman = new Bomber(1, 1, new KeyboardInput());
