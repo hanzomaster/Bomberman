@@ -41,7 +41,7 @@ public class Phoenix extends Monster {
     for (int i = 0; i < 4; i++) {
       int xx = tempX + AddToXToCheckCollision[i];
       int yy = tempY + AddToYToCheckCollision[i];
-      if (!canMove(xx, yy)) {
+      if (!canMove(xx, yy) || recognizeBomb(xx, yy)) {
         direction = movetype.setDirection(direction);
         return;
       }

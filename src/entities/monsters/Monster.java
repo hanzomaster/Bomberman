@@ -45,15 +45,15 @@ public abstract class Monster extends AnimationEntity {
     if (this instanceof Kondoria && e instanceof Brick) {
       return true;
     }
-    if (this instanceof Dragon && recognizeBomb(x, y)) {
-      return false;
-    }
+    // if (this instanceof Dragon && recognizeBomb(x, y)) {
+    // return false;
+    // }
     if (this instanceof BatMonster && recognizeBomb(x, y)) {
       return false;
     }
-    if (this instanceof Phoenix && recognizeBomb(x, y)) {
-      return false;
-    }
+    // if (this instanceof Phoenix && recognizeBomb(x, y)) {
+    // return false;
+    // }
     return !(e instanceof Wall || e instanceof Brick || e instanceof Bomb || e instanceof Portal);
   }
 

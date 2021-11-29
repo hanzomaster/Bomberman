@@ -109,6 +109,11 @@ public class Game {
         soundGame.play();
       }
       soundLevelup.stop();
+      if (!bomberman.isAlive()) {
+        bomberman.setX(originBomber.getX());
+        bomberman.setY(originBomber.getY());
+        bomberman.setAlive(true);
+      }
     } else {
       soundGame.stop();
       soundLevelup.play();
