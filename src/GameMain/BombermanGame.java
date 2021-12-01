@@ -5,6 +5,7 @@ import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
 import GameFrame.CanvasGame;
+import GameFrame.HighScore;
 import GameFrame.MenuGame;
 import GameFrame.PauseGame;
 import entities.Entity;
@@ -17,6 +18,7 @@ import javafx.scene.Scene;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
 import javafx.stage.Stage;
 import sounds.Sound;
 
@@ -95,6 +97,13 @@ public class BombermanGame extends Application {
               menuGame.setShowTutorial(false);
             }
 
+          } else if (menuGame.showHighScore()) {
+            renderHighScore(gc);
+            if (canvas.getInput().backspace || canvas.getInput().space) {
+              showMenu = true;
+              // System.out.println("Backspace");
+              menuGame.setShowHighScore(false);
+            }
           } else if (menuGame.isStartGame()) {
             // create new map at level 1
             canvas.getGame().createNewGame();
@@ -138,6 +147,7 @@ public class BombermanGame extends Application {
           if (canvas.getGame().isOver() && canvas.getGame().getTimeShowGameOver() == 0) {
             canvas.getGame().stopSound();
             showMenu = true;
+            canvas.getGame().setTimeShowGameOver();
             canvas.getGame().setReturnMainMenu(false);
           }
         }
@@ -172,6 +182,24 @@ public class BombermanGame extends Application {
       System.out.println("MenuGame.renderTutorial()");
     }
   }
+
+  public void renderHighScore(GraphicsContext gc) {
+    FileInputStream file;
+    try {
+      file = new FileInputStream("src/resources/textures/victory.png");
+      final Image backgroundLevel = new Image(file);
+      gc.clearRect(0, 0, 992, 448);
+      gc.drawImage(backgroundLevel, 0, 0);
+      gc.setFont(Font.font("Impact", 60));
+      gc.setFill(Color.RED);
+      // int score = BombermanGame.getScore();
+      gc.fillText("Record: " + HighScore.getHighScore(), 350, 440);
+    } catch (FileNotFoundException e) {
+      e.printStackTrace();
+      System.out.println("MenuGame.renderTutorial()");
+    }
+  }
+
 
   public static int getScore() {
     return score;

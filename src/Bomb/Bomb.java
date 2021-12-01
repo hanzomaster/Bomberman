@@ -6,6 +6,7 @@ import GameMain.BombermanGame;
 import entities.AnimationEntity;
 import entities.Entity;
 import entities.monsters.Balloon;
+import entities.monsters.BatMonster;
 import entities.monsters.Doll;
 import entities.monsters.Dragon;
 import entities.monsters.Kondoria;
@@ -213,6 +214,10 @@ public class Bomb extends AnimationEntity {
         gotScore = 35;
       else if (e instanceof Dragon)
         gotScore = 50;
+      else if (e instanceof BatMonster)
+        gotScore = 40;
+      else if (e instanceof Phoenix)
+        gotScore = 60;
       BombermanGame.setScore(BombermanGame.getScore() + gotScore);
     }
 

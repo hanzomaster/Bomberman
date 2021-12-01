@@ -64,7 +64,7 @@ public class Game {
   public void createNewGame() {
     gameOver = false;
     currentLevel = 1;
-    BombermanGame.setLives(1000);
+    BombermanGame.setLives(3);
     BombermanGame.setScore(0);
     Timers.setDelay(400);
     bomberman = new Bomber(1, 1, new KeyboardInput());
@@ -342,6 +342,7 @@ public class Game {
       gc.setFont(Font.font("Impact", 60));
       int score = BombermanGame.getScore();
       gc.fillText("Your score: " + score, 200, 300);
+      HighScore.setNewHighScore(score);
       gc.setFill(Color.RED);
     }
 
@@ -359,6 +360,7 @@ public class Game {
       gc.setFont(Font.font("Impact", 60));
       gc.setFill(Color.RED);
       int score = BombermanGame.getScore();
+      HighScore.setNewHighScore(score);
       gc.fillText("New record: " + score, 350, 440);
     }
     // gc.setFont(Font.font("Impact", 60));
@@ -457,5 +459,9 @@ public class Game {
 
   public int getTimeShowGameOver() {
     return timeShowGameOver;
+  }
+
+  public void setTimeShowGameOver() {
+    timeShowGameOver = 250;
   }
 }

@@ -10,12 +10,13 @@ import javafx.scene.text.Font;
 
 public class MenuGame {
   private boolean startGame = false;
+  private boolean highscore = false;
   private boolean tutorial = false;
   private boolean quit = false;
 
   private KeyboardInput keyboardInput;
   private int selecting = 0;
-  private final int[] pointerCoordinate = {235, 285, 335, 385};
+  private final int[] pointerCoordinate = {185, 235, 285, 335, 385};
 
   public MenuGame(KeyboardInput keyboardInput) {
     this.keyboardInput = keyboardInput;
@@ -40,16 +41,19 @@ public class MenuGame {
       System.out.println("MenuGame.showMenu()");
     }
     gc.setFont(Font.font("Impact", 30)); // Font
-    gc.fillText("New Game", 400, 280);
+    gc.fillText("New Game", 400, 230);
     String sound = BombermanGame.getMuted() ? "off" : "on";
-    gc.fillText("Sound : " + sound, 400, 330);
+    gc.fillText("Sound : " + sound, 400, 280);
+
+    gc.fillText("HighScore", 400, 330);
+
     gc.fillText("Tutorial", 400, 380);
 
     gc.fillText("Quit", 400, 430);
   }
 
   public void update() {
-    if (!keyboardInput.release && keyboardInput.down && selecting < 3) {
+    if (!keyboardInput.release && keyboardInput.down && selecting < 4) {
       selecting++;
       keyboardInput.setRelease(true);
     } else if (!keyboardInput.release && keyboardInput.up && selecting > 0) {
@@ -65,9 +69,12 @@ public class MenuGame {
           BombermanGame.setMuted(!BombermanGame.getMuted());
           break;
         case 2:
-          tutorial = true;
+          highscore = true;
           break;
         case 3:
+          tutorial = true;
+          break;
+        case 4:
           quit = true;
           break;
         default:
@@ -99,5 +106,13 @@ public class MenuGame {
 
   public void setShowTutorial(boolean p) {
     this.tutorial = p;
+  }
+
+  public boolean showHighScore() {
+    return highscore;
+  }
+
+  public void setShowHighScore(boolean p) {
+    this.highscore = p;
   }
 }
