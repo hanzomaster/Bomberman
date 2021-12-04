@@ -44,7 +44,7 @@ public class Game {
   // level
   private Level level = new Level();
   private int currentLevel = 1;
-  private int timeShowTransferLevel = 150;
+  private int timeShowTransferLevel = 140;
   private boolean transferLevel = false;
 
   private boolean gameOver = false;
@@ -64,7 +64,7 @@ public class Game {
   public void createNewGame() {
     gameOver = false;
     currentLevel = 1;
-    BombermanGame.setLives(3);
+    BombermanGame.setLives(100);
     BombermanGame.setScore(0);
     Timers.setDelay(400);
     bomberman = new Bomber(1, 1, new KeyboardInput());
@@ -105,7 +105,7 @@ public class Game {
     if (!transferLevel) {
       updateAllEntities();
       Timers.setDelay(Timers.getDelay() + 400);
-      if (timeShowTransferLevel == 150) {
+      if (timeShowTransferLevel == 140) {
         soundGame.play();
       }
       soundLevelup.stop();
@@ -245,7 +245,7 @@ public class Game {
         renderTransferLevelScreen(gc);
       } else {
         transferLevel = false;
-        timeShowTransferLevel = 150;
+        timeShowTransferLevel = 140;
       }
     }
     if (gameOver) {

@@ -33,7 +33,7 @@ public class BombermanGame extends Application {
   private List<Entity> stillObjects = new ArrayList<>();
 
   // Player status
-  public static final int timeLiving = 300;
+  public static final int timeLiving = 60;
   private static int score = 0;
   private static int lives = 3;
 

@@ -1,9 +1,9 @@
 package timer;
 
-import GameFrame.Game;
-import GameMain.BombermanGame;
 import java.util.Timer;
 import java.util.TimerTask;
+import GameFrame.Game;
+import GameMain.BombermanGame;
 
 public class Timers {
   private boolean isPlaying = false;
@@ -27,6 +27,7 @@ public class Timers {
           if (check == BombermanGame.timeLiving) {
             Game.bomberman.setAlive(false);
           }
+          BombermanGame.setLives(0);
           isPlaying = false;
         }
         if (isPlaying) {
