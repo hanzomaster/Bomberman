@@ -27,7 +27,7 @@ public class Timers {
           if (check == BombermanGame.timeLiving) {
             Game.bomberman.setAlive(false);
           }
-          BombermanGame.setLives(0);
+          // BombermanGame.setLives(0);
           isPlaying = false;
         }
         if (isPlaying) {

@@ -1,9 +1,5 @@
 package GameFrame;
 
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.util.ArrayList;
-import java.util.List;
 import Bomb.Bomb;
 import GameMain.BombermanGame;
 import entities.Entity;
@@ -12,6 +8,10 @@ import entities.player.Bomber;
 import entities.stillobjects.Brick;
 import entities.stillobjects.Grass;
 import entities.stillobjects.Portal;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.util.ArrayList;
+import java.util.List;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
@@ -104,7 +104,7 @@ public class Game {
   public void update() {
     if (!transferLevel) {
       updateAllEntities();
-      Timers.setDelay(Timers.getDelay() + 400);
+      Timers.setDelay(Timers.getDelay());
       if (timeShowTransferLevel == 140) {
         soundGame.play();
       }
