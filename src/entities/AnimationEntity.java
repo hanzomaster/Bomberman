@@ -5,7 +5,7 @@ import javafx.scene.image.Image;
 public abstract class AnimationEntity extends Entity {
 
   protected int animation = 0;
-  public static final int MAX_ANIMATE = 5000;
+  public static final int MAX_ANIMATE = 3000;
 
   protected int timeTransfer = 26;
 

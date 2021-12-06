@@ -1,15 +1,15 @@
 package GameMain;
 
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.util.ArrayList;
+import java.util.List;
 import GameFrame.CanvasGame;
 import GameFrame.HighScore;
 import GameFrame.MenuGame;
 import GameFrame.PauseGame;
 import entities.Entity;
 import graphics.Sprite;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.util.ArrayList;
-import java.util.List;
 import javafx.animation.AnimationTimer;
 import javafx.application.Application;
 import javafx.application.Platform;
@@ -91,7 +91,7 @@ public class BombermanGame extends Application {
             System.exit(0);
           } else if (menuGame.showTutorial()) {
             renderTutorial(gc);
-            if (canvas.getInput().backspace || canvas.getInput().space) {
+            if (canvas.getInput().backspace) {
               showMenu = true;
               // System.out.println("Backspace");
               menuGame.setShowTutorial(false);
@@ -99,7 +99,7 @@ public class BombermanGame extends Application {
 
           } else if (menuGame.showHighScore()) {
             renderHighScore(gc);
-            if (canvas.getInput().backspace || canvas.getInput().space) {
+            if (canvas.getInput().backspace) {
               showMenu = true;
               // System.out.println("Backspace");
               menuGame.setShowHighScore(false);
@@ -194,9 +194,12 @@ public class BombermanGame extends Application {
       gc.setFill(Color.RED);
       // int score = BombermanGame.getScore();
       gc.fillText("Record: " + HighScore.getHighScore(), 350, 440);
+      gc.setFont(Font.font("Impact", 20));
+      gc.setFill(Color.WHEAT);
+      gc.fillText("Press Backspace to return to main menu", 10, 30);
     } catch (FileNotFoundException e) {
       e.printStackTrace();
-      System.out.println("MenuGame.renderTutorial()");
+      System.out.println("MenuGame.renderHighscore");
     }
   }
 

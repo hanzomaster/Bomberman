@@ -1,5 +1,7 @@
 package entities.player;
 
+import java.util.ArrayList;
+import java.util.List;
 import Bomb.Bomb;
 import Bomb.Flame;
 import GameFrame.KeyboardInput;
@@ -11,8 +13,6 @@ import entities.stillobjects.Grass;
 import entities.stillobjects.Portal;
 import entities.stillobjects.Wall;
 import graphics.Sprite;
-import java.util.ArrayList;
-import java.util.List;
 import javafx.scene.canvas.GraphicsContext;
 import powerups.Powerup;
 import sounds.Sound;
@@ -191,14 +191,14 @@ public class Bomber extends BomberCharacter {
         return false;
       }
       if (e instanceof Portal) {
-        // if (killAllEnemies) {
+        if (killAllEnemies) {
+          isCollideWithAPortal = true;
+          soundMoving.stop();
+          return true;
+        }
+        return false;
         // isCollideWithAPortal = true;
-        // soundMoving.stop();
         // return true;
-        // }
-        // return false;
-        isCollideWithAPortal = true;
-        return true;
       }
       if (e instanceof Bomb bomb) {
         if (canPassBom) {

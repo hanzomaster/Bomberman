@@ -19,6 +19,7 @@ public class Timers {
    */
   public void setTime() {
     isPlaying = true;
+    // timer.cancel();
     timer.scheduleAtFixedRate(new TimerTask() {
       @Override
       public void run() {
@@ -27,11 +28,13 @@ public class Timers {
           if (check == BombermanGame.timeLiving) {
             Game.bomberman.setAlive(false);
           }
-          // BombermanGame.setLives(0);
+          BombermanGame.setLives(0);
+          // System.out.println("gameover" + interval);
           isPlaying = false;
         }
         if (isPlaying) {
           --interval;
+          System.out.println(interval);
         }
       }
     }, delay, PERIOD);
@@ -52,6 +55,7 @@ public class Timers {
   public void setInterval(int interval) {
     this.interval = interval;
     check = interval;
+    // timer.cancel();
   }
 
   public static int getDelay() {
@@ -60,5 +64,9 @@ public class Timers {
 
   public static void setDelay(int newDelay) {
     delay = newDelay;
+  }
+
+  public void setPeriod() {
+    timer.cancel();
   }
 }

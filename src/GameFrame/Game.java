@@ -1,5 +1,9 @@
 package GameFrame;
 
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.util.ArrayList;
+import java.util.List;
 import Bomb.Bomb;
 import GameMain.BombermanGame;
 import entities.Entity;
@@ -8,10 +12,6 @@ import entities.player.Bomber;
 import entities.stillobjects.Brick;
 import entities.stillobjects.Grass;
 import entities.stillobjects.Portal;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.util.ArrayList;
-import java.util.List;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
@@ -66,7 +66,7 @@ public class Game {
     currentLevel = 1;
     BombermanGame.setLives(100);
     BombermanGame.setScore(0);
-    Timers.setDelay(400);
+    Timers.setDelay(3000);
     bomberman = new Bomber(1, 1, new KeyboardInput());
     createMap();
     updateEnemy(bomberman);
@@ -78,13 +78,16 @@ public class Game {
   public void createMap() {
     if (currentLevel <= paths.length) {
       timers = new Timers();
-      Timers.setDelay(400);
+
+      Timers.setDelay(3000);
+
       level.createMapLevel(paths[currentLevel - 1], currentLevel - 1);
 
       originBomber = level.getBomber();
       if (currentLevel > 1) {
         // TODO: Thêm các trạng thái cũ vào bomber ở level mới
         bomberman.restoreBomber(bomberInPreLevel);
+        // timers.stop();
       }
       bomberman.setX(originBomber.getX());
       bomberman.setY(originBomber.getY());
@@ -158,6 +161,8 @@ public class Game {
     if (bomberman.isCollideWithAPortal()) {
       bomberInPreLevel.restoreBomber(bomberman);
       currentLevel++;
+      // timers.stop();
+      timers.setPlay(false);
       transferLevel = true;
 
       if (currentLevel > paths.length) {
@@ -169,6 +174,7 @@ public class Game {
     }
     if (BombermanGame.getLives() == 0) {
       gameOver = true;
+      // System.out.println("get live");
     }
   }
 
