@@ -34,7 +34,7 @@ public class Timers {
         }
         if (isPlaying) {
           --interval;
-          System.out.println(interval);
+          // System.out.println(interval);
         }
       }
     }, delay, PERIOD);
